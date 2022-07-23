@@ -1,3 +1,8 @@
+/**
+ * 
+ * [ARCHIVED] Switching to Postgresql
+ * 
+ */
 // REF: https://www.oracle.com/database/technologies/appdev/quickstartnodeonprem.html
 const oracledb = require('oracledb');
 const tunnel = require('tunnel-ssh');

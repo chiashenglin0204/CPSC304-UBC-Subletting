@@ -1,3 +1,8 @@
+/**
+ * 
+ * [ARCHIVED] Switching to Postgresql
+ * 
+ */
 const oracledb = require('oracledb');
 
 const mypw = "a43264530"  // set mypw to the hr schema password

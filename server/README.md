@@ -1,4 +1,50 @@
+## GET STARTED
+run `npm install` in the root directory of the server
 
+## Get setup for development
+### postgresql
+The following setups use the terminal
+1. install `homebrew`
+    ```
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    ```
+2. install `postgresql`
+    ```
+    brew install postgresql
+    ```
+3. initialize db
+    ```
+    initdb -D ~/postgres/data/
+    ```
+4. start db - postgres server locally on port `5432` from directory specified
+    ```
+     pg_ctl -D ~/postgres/data -l logfile start
+    ```
+    stop db
+    ```
+     pg_ctl -D ~/postgres/data -l logfile stop
+    ```
+5. start psql with user - user id will be the user named under the home path
+    ```
+    psql -U <id> postgres
+    ```
+
+    ```
+    echo $HOME
+    # returns -> /Users/kenny.cheng
+    # my user id is kenny.cheng
+    ```
+
+### psql commands
+`\?` - lists all postgres specific actions
+
+`\h` - lists all SQL commands
+
+`\l` - list all existing dbs
+
+`\d` - list all exist tables and views
+
+## References
 [express starter](https://expressjs.com/en/starter/installing.html)
 
 to run
@@ -6,21 +52,8 @@ to run
 DEBUG=express:* npm start
 ```
 
-## Testing DB Connection
-connect to db by putting complete connection address
-```
-(DESCRIPTION =(ADDRESS = (PROTOCOL = TCP)(HOST = dbhost.students.cs.ubc.ca)(PORT = 1522))(CONNECT_DATA =(SID= stu)))
-```
-need [oracle instant client](https://www.oracle.com/database/technologies/instant-client/downloads.html) - referenced from [node oracle install manual](https://oracle.github.io/node-oracledb/INSTALL.html#overview)
 
-1. [MacOS] download dmg 
-2. double click in finder
-3. follow instructions in README.md to mount and run install script
-4. inspect terminal to find install location, copy those files to `/usr/local/lib`
 
-```
-node example.js
-```
 
 ## Tools
 using `express-generator` to generate file skeleton
@@ -29,20 +62,3 @@ using `express-generator` to generate file skeleton
 
 [.env for setting env variables](https://github.com/motdotla/dotenv)
 
-
-## NOTES
-```
-SQLNET.USE_HTTPS_PROXY=on
-
-connectionString = 
-    (DESCRIPTION =
-        (ADDRESS =
-            (HTTPS_PROXY=remote.students.cs.ubc.ca)(HTTPS_PROXY_PORT=1522)
-            (PROTOCOL = TCP)(HOST = dbhost.students.cs.ubc.ca)(PORT = 1522)
-        )
-        (CONNECT_DATA =
-            (SERVER = DEDICATED)
-            (SID= stu)
-        )
-    )
-```

@@ -14,6 +14,8 @@
     "morgan": "~1.9.1",
     "oracle-ssh": "^1.0.0",
     "oracledb": "^5.4.0",
+    "pg": "^8.7.3",
+    "pgtools": "^0.3.2",
     "tunnel-ssh": "^4.1.6"
   }
 }
