@@ -1,6 +1,15 @@
 ## GET STARTED
 run `npm install` in the root directory of the server
 
+## References
+[express starter](https://expressjs.com/en/starter/installing.html)
+
+to run
+```
+// runs on localhost:3000
+npm start
+```
+
 ## Get setup for development
 ### postgresql
 The following setups use the terminal
@@ -43,17 +52,6 @@ The following setups use the terminal
 `\l` - list all existing dbs
 
 `\d` - list all exist tables and views
-
-## References
-[express starter](https://expressjs.com/en/starter/installing.html)
-
-to run
-```
-DEBUG=express:* npm start
-```
-
-
-
 
 ## Tools
 using `express-generator` to generate file skeleton
