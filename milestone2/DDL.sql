@@ -30,24 +30,28 @@ CREATE TABLE Applicant (
 -- Recombination:
 -- Supporting_Document1(documentID, applicantID),
 -- Supporting_Document2(documentID, document)
---    --> Supporting_Document1(documentID, applicantID, document)
+-- Supporting_Document3(documentID, sid)
+--    --> Supporting_Document1(documentID, applicantID, sid, document)
 CREATE TABLE Supporting_Document1 (
   documentID    Serial    PRIMARY KEY,
   applicantID   Serial    NOT NULL,
+  sid           Serial    NOT NULL,
   document      TEXT      NOT NULL,
-  FOREIGN KEY (applicantID) REFERENCES Applicant (applicantID)
+  FOREIGN KEY (applicantID) REFERENCES Applicant (applicantID),
+  FOREIGN KEY (sid) REFERENCES User(sid)
+
 );
 
-CREATE TABLE Supporting_Document3 (
+CREATE TABLE Supporting_Document4 (
   document    TEXT    PRIMARY KEY,
   type        TEXT    NOT NULL
 );
 
 CREATE TABLE partOf (
-  applicantID   Serial,
-  documentID    Serial,
-  PRIMARY KEY (applicantID, documentID),
-  FOREIGN KEY (applicantID) REFERENCES Applicant (applicantID),
+  applicationID  Serial,
+  documentID      Serial,
+  PRIMARY KEY (applicationID, documentID),
+  FOREIGN KEY (applicationID) REFERENCES Application (applicationID),
   FOREIGN KEY (documentID) REFERENCES Supporting_Document1 (documentID)
 );
 
@@ -55,7 +59,7 @@ CREATE TABLE Residence (
   resID         Serial    PRIMARY KEY,
   buildingName  TEXT      NOT NULL,
   streetAddress TEXT      NOT NULL,
-  minAge        Integer   NOT NULL,
+  minAge        Integer,
   UNIQUE (buildingName, streetAddress)
 );
 
@@ -104,25 +108,30 @@ CREATE TABLE Listing (
   room#       Integer   NOT NULL,
   resID       Serial    NOT NULL,
   subID       Serial    NOT NULL,
+  sid         Serial    NOT NULL,
   dateListed  DATE,
   status      TEXT,     DEFAULT 'AVAILABLE',
   rate        NUMERIC,
   startDate   DATE,
   endDate     DATE,
   UNIQUE (resID, room#),
-  UNIQUE (subID),
+  UNIQUE (subID, sid),
   FOREIGN KEY (room#) REFERENCES Room_In1 (room#),
   FOREIGN KEY (resID) REFERENCES Residence (resID),
-  FOREIGN KEY (subID) REFERENCES Subletter (subID)
+  FOREIGN KEY (subID) REFERENCES Subletter (subID),
+  FOREIGN KEY (sid) REFERENCES User(sid)
+
 );
 
 CREATE TABLE Application (
   applicationID   Serial  PRIMARY KEY,
   listingID       Serial  NOT NULL,
   applicantID     Serial  NOT NULL,
+  sid             Serial  NOT NULL,
   introduction    TEXT,
   FOREIGN KEY (listingID) REFERENCES Listing (listingID),
-  FOREIGN KEY (applicantID) REFERENCES Applicant (applicantID)
+  FOREIGN KEY (applicantID) REFERENCES Applicant (applicantID),
+  FOREIGN KEY (sid) REFERENCES User(sid)
 );
 
 -- Recombination:
