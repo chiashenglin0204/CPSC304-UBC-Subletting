@@ -1,6 +1,6 @@
-# Getting Started with Create React App
+# components library
+[Material UI](https://mui.com/material-ui/getting-started/overview/)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
 Run development mode on `localhost:3000` with hot reload
@@ -11,9 +11,14 @@ launch test runner in interactive watch mode. [more info](https://facebook.githu
 Build for production into `build` folder. [more info](https://facebook.github.io/create-react-app/docs/deployment)
 ### `npm run build`
 
-## Learn More
+
+## --------- ADDITIONAL READING --------------
+### Learn More
 
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
 
+### Getting Started with Create React App
+
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
