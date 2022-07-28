@@ -32,27 +32,18 @@ CREATE TABLE Applicant (
 -- Supporting_Document2(documentID, document)
 -- Supporting_Document3(documentID, sid)
 --    --> Supporting_Document1(documentID, applicantID, sid, document)
-CREATE TABLE Supporting_Document1 (
+CREATE TABLE Supporting_Document123 (
   documentID    Serial    PRIMARY KEY,
   applicantID   Serial    NOT NULL,
   sid           Serial    NOT NULL,
   document      TEXT      NOT NULL,
   FOREIGN KEY (applicantID) REFERENCES Applicant (applicantID),
   FOREIGN KEY (sid) REFERENCES User(sid)
-
 );
 
 CREATE TABLE Supporting_Document4 (
   document    TEXT    PRIMARY KEY,
   type        TEXT    NOT NULL
-);
-
-CREATE TABLE partOf (
-  applicationID  Serial,
-  documentID      Serial,
-  PRIMARY KEY (applicationID, documentID),
-  FOREIGN KEY (applicationID) REFERENCES Application (applicationID),
-  FOREIGN KEY (documentID) REFERENCES Supporting_Document1 (documentID)
 );
 
 CREATE TABLE Residence (
@@ -67,20 +58,22 @@ CREATE TABLE Residence (
 -- Room_In1(room#, resID, roomType),
 -- Room_In2(room#, resID, gender)
 --    --> Room_In1(room#, resId, roomType, gender)
-CREATE TABLE Room_In1 (
+CREATE TABLE Room_In12 (
   room#     Integer,
   resID     Serial,
   roomType  CHAR(1)   NOT NULL,
   gender    CHAR(1)   NOT NULL,
   PRIMARY KEY (room#, resID),
-  FOREIGN KEY (resID) REFERENCES Residence (resID) ON DELETE CASCADE
+  FOREIGN KEY (resID) REFERENCES Residence (resID)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
 );
 
 -- Recombination:
 -- Room_In3(roomType, hasKitchen),
 -- Room_In4(roomType, numRooms)
 --    --> Room_In3(roomType, hasKitchen, numRooms)
-CREATE TABLE Room_In3 (
+CREATE TABLE Room_In34 (
   roomType    TEXT      PRIMARY KEY,
   hasKitchen  Boolean   NOT NULL,
   numRooms    Integer   NOT NULL
@@ -110,7 +103,7 @@ CREATE TABLE Listing (
   subID       Serial    NOT NULL,
   sid         Serial    NOT NULL,
   dateListed  DATE,
-  status      TEXT,     DEFAULT 'AVAILABLE',
+  status      TEXT     DEFAULT 'AVAILABLE'    NOT NULL,
   rate        NUMERIC,
   startDate   DATE,
   endDate     DATE,
@@ -134,15 +127,23 @@ CREATE TABLE Application (
   FOREIGN KEY (sid) REFERENCES User(sid)
 );
 
+CREATE TABLE partOf (
+  applicationID  Serial,
+  documentID      Serial,
+  PRIMARY KEY (applicationID, documentID),
+  FOREIGN KEY (applicationID) REFERENCES Application (applicationID),
+  FOREIGN KEY (documentID) REFERENCES Supporting_Document1 (documentID)
+);
+
 -- Recombination:
 -- Viewing_Schedule1(viewingID, applicationID),
--- Viewing_Schedule2(viewingID, date),
--- Viewing_Schedule3(viewingID, time)
---    --> Viewing_Schedule1(viewingID, applicationID, date, time)
-CREATE TABLE Viewing_Schedule1 (
+-- Viewing_Schedule2(viewingID, viewingDate),
+-- Viewing_Schedule3(viewingID, viewingTime)
+--    --> Viewing_Schedule1(viewingID, applicationID, viewingDate, viewingTime)
+CREATE TABLE Viewing_Schedule123 (
   viewingID       Serial    PRIMARY KEY,
   applicationID   Serial    NOT NULL,
-  dateListed      Date      NOT NULL,
+  viewingDate     Date      NOT NULL,
   viewingTime     TIME      NOT NULL,
   FOREIGN KEY (applicationID) REFERENCES Application (applicationID)
 );
