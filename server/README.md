@@ -6,9 +6,16 @@ run `npm install` in the root directory of the server
 
 to run
 ```
-// runs on localhost:3000
+// runs on localhost:3001
 npm start
 ```
+
+## Setting up environment variables
+1. Create a folder in the root directory of the server folder called `.env`
+2. specify any environment variables
+    ```
+    PORT=6969
+    ```
 
 ## Get setup for development
 ### postgresql
