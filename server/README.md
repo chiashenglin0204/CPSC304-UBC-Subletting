@@ -28,6 +28,9 @@ The following setups use the terminal
     ```
     brew install postgresql
     ```
+    ```
+    /usr/local/opt/postgres/bin/createuser -s postgres
+    ```
 3. initialize db
     ```
     initdb -D ~/postgres/data/
@@ -50,6 +53,7 @@ The following setups use the terminal
     # returns -> /Users/kenny.cheng
     # my user id is kenny.cheng
     ```
+
 
 ### psql commands
 `\?` - lists all postgres specific actions
