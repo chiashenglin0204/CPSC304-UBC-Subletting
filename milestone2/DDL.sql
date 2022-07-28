@@ -250,6 +250,7 @@ CREATE TABLE Viewing_Schedule123 (
   applicationID   Serial    NOT NULL,
   viewingDate     Date      NOT NULL,
   viewingTime     TIME      NOT NULL,
+  UNIQUE (applicationID),
   FOREIGN KEY (applicationID) REFERENCES Application (applicationID)
     ON DELETE NO ACTION
     ON UPDATE CASCADE
@@ -264,6 +265,7 @@ INSERT INTO Viewing_Schedule123 (viewingID, applicationID, viewingDate, viewingT
 CREATE TABLE Viewing_Schedule4 (
   applicationID   Serial  PRIMARY KEY,
   address         TEXT,
+  UNIQUE (applicationID),
   FOREIGN KEY (applicationID) REFERENCES Application (applicationID)
     ON DELETE NO ACTION
     ON UPDATE CASCADE
