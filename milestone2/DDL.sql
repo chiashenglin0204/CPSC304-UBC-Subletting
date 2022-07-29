@@ -4,15 +4,15 @@
 --       format. This allows us to more easily reference keys of decomposed
 --       relations when introducing a foreign key.
 
-CREATE TABLE User (
+CREATE TABLE "user" (
   sid     Integer   PRIMARY KEY,
-  phone#  TEXT      NOT NULL,
+  "phone#"  TEXT      NOT NULL,
   name    TEXT      NOT NULL,
   gender  CHAR(1)   NOT NULL,
   email   TEXT,
-  UNIQUE (phone#)
+  UNIQUE ("phone#")
 );
-INSERT INTO User (sid, phone#, name, gender, email) VALUES
+INSERT INTO "user" (sid, "phone#", name, gender, email) VALUES
   (11111111,2367889977,'Yuka Ma','F','yukama1@student.ubc.ca'),
   (22222222,6042388080,'Michael Jackson','M',NULL),
   (33333333,6045550160,'Elvis Presley','M','elvispresley@gmail.com'),
@@ -27,7 +27,7 @@ CREATE TABLE Subletter (
   subID   Serial,
   sid     Integer,
   PRIMARY KEY (subID, sid),
-  FOREIGN KEY (sid) REFERENCES User (sid)
+  FOREIGN KEY (sid) REFERENCES "user" (sid)
 );
 INSERT INTO Subletter (subID, sid) VALUES
   (1,11111111),
@@ -40,7 +40,7 @@ CREATE TABLE Applicant (
   applicantID   Serial,
   sid           Integer,
   PRIMARY KEY (applicantID, sid),
-  FOREIGN KEY (sid) REFERENCES User (sid)
+  FOREIGN KEY (sid) REFERENCES "user" (sid)
 );
 INSERT INTO Applicant (applicantID, sid) VALUES
   (1,99999999),
@@ -59,30 +59,27 @@ CREATE TABLE Supporting_Document123 (
   applicantID   Serial    NOT NULL,
   sid           Serial    NOT NULL,
   document      TEXT      NOT NULL,
-  FOREIGN KEY (applicantID) REFERENCES Applicant (applicantID)
-    ON DELETE NO ACTION
-    ON UPDATE CASCADE,
-  FOREIGN KEY (sid) REFERENCES User(sid)
+  FOREIGN KEY (applicantID, sid) REFERENCES Applicant (applicantID, sid)
     ON DELETE NO ACTION
     ON UPDATE CASCADE
 );
 INSERT INTO Supporting_Document123 (documentID, applicantID, sid, document) VALUES
-  (1,1,99999999,'Bruno\'s study permit'),
-  (2,1,99999999,'Bruno\'s student id photocopy'),
-  (3,3,77777777,'Gaga\'s passport'),
-  (4,5,55555555,'Justin\'s passport'),
-  (5,5,55555555,'Justin\'s BC id');
+  (1,1,99999999,'Bruno''s study permit'),
+  (2,1,99999999,'Bruno''s student id photocopy'),
+  (3,3,77777777,'Gaga''s passport'),
+  (4,5,55555555,'Justin''s passport'),
+  (5,5,55555555,'Justin''s BC id');
 
 CREATE TABLE Supporting_Document4 (
   document    TEXT    PRIMARY KEY,
   type        TEXT    NOT NULL
 );
 INSERT INTO Supporting_Document4 (document, type) VALUES
-  ('Bruno\'s study permit','study permit'),
-  ('Bruno\'s student id photocopy','student id'),
-  ('Gaga\'s passport','government id'),
-  ('Justin\'s passport','government id'),
-  ('Justin\'s BC id','government id');
+  ('Bruno''s study permit','study permit'),
+  ('Bruno''s student id photocopy','student id'),
+  ('Gaga''s passport','government id'),
+  ('Justin''s passport','government id'),
+  ('Justin''s BC id','government id');
 
 CREATE TABLE Residence (
   resID         Serial    PRIMARY KEY,
@@ -103,16 +100,16 @@ INSERT INTO Residence (resID, buildingName, streetAddress, minAge) VALUES
 -- Room_In2(room#, resID, gender)
 --    --> Room_In1(room#, resId, roomType, gender)
 CREATE TABLE Room_In12 (
-  room#     Integer,
+  "room#"     Integer,
   resID     Serial,
   roomType  CHAR(1)   NOT NULL,
   gender    CHAR(1)   NOT NULL,
-  PRIMARY KEY (room#, resID),
+  PRIMARY KEY ("room#", resID),
   FOREIGN KEY (resID) REFERENCES Residence (resID)
     ON DELETE CASCADE
     ON UPDATE CASCADE
 );
-INSERT INTO Room_In12 (room#, resID, roomType, gender) VALUES
+INSERT INTO Room_In12 ("room#", resID, roomType, gender) VALUES
   (101,1,'A','F'),
   (202,1,'C','M'),
   (304,1,'C','F'),
@@ -159,11 +156,11 @@ INSERT INTO Amenity (type) VALUES
 CREATE TABLE has (
   amenityType   TEXT,
   resID         Serial,
-  PRIMARY KEY (amentiyType, resID),
+  PRIMARY KEY (amenityType, resID),
   FOREIGN KEY (amenityType) REFERENCES Amenity (type),
   FOREIGN KEY (resID) REFERENCES Residence (resID)
 );
-INSERT INTO has (amentiyType, resID) VALUES
+INSERT INTO has (amenityType, resID) VALUES
   ('Front desk',1),
   ('Gym',1),
   ('Music room',1),
@@ -172,7 +169,7 @@ INSERT INTO has (amentiyType, resID) VALUES
 
 CREATE TABLE Listing (
   listingID   Serial    PRIMARY KEY,
-  room#       Integer   NOT NULL,
+  "room#"       Integer   NOT NULL,
   resID       Serial    NOT NULL,
   subID       Serial    NOT NULL,
   sid         Serial    NOT NULL,
@@ -181,22 +178,16 @@ CREATE TABLE Listing (
   rate        NUMERIC,
   startDate   DATE,
   endDate     DATE,
-  UNIQUE (resID, room#),
+  UNIQUE (resID, "room#"),
   UNIQUE (subID, sid),
-  FOREIGN KEY (room#) REFERENCES Room_In1 (room#)
+  FOREIGN KEY ("room#", resID) REFERENCES Room_In12 ("room#", resID)
     ON DELETE NO ACTION
     ON UPDATE CASCADE,
-  FOREIGN KEY (resID) REFERENCES Residence (resID)
-    ON DELETE NO ACTION
-    ON UPDATE CASCADE,
-  FOREIGN KEY (subID) REFERENCES Subletter (subID)
-    ON DELETE NO ACTION
-    ON UPDATE CASCADE,
-  FOREIGN KEY (sid) REFERENCES User(sid)
+  FOREIGN KEY (subID, sid) REFERENCES Subletter (subID, sid)
     ON DELETE NO ACTION
     ON UPDATE CASCADE
 );
-INSERT INTO Listing (listingID, room#, resID, subID, sid, dateListed, status, rate, startDate, endDate) VALUES
+INSERT INTO Listing (listingID, "room#", resID, subID, sid, dateListed, status, rate, startDate, endDate) VALUES
   (1,101,1,1,11111111,'2022-07-24','AVAILABLE',1800,'2022-08-01','2022-09-01'),
   (2,202,1,2,22222222,'2022-08-01','CLOSED',1100,'2022-08-31',NULL),
   (3,304,1,3,33333333,'2022-06-09','AVAILABLE',1150,'2022-07-21','2022-08-30'),
@@ -212,26 +203,23 @@ CREATE TABLE Application (
   FOREIGN KEY (listingID) REFERENCES Listing (listingID)
     ON DELETE NO ACTION
     ON UPDATE CASCADE,
-  FOREIGN KEY (applicantID) REFERENCES Applicant (applicantID)
+  FOREIGN KEY (applicantID, sid) REFERENCES Applicant (applicantID, sid)
     ON DELETE NO ACTION
-    ON UPDATE CASCADE,
-  FOREIGN KEY (sid) REFERENCES User(sid)
-    ON DELETE NO ACTION
-    ON UPDATE CASCADE,
+    ON UPDATE CASCADE
 );
 INSERT INTO Application (applicationID, listingID, applicantID, sid, introduction) VALUES
-  (1,1,5,55555555,'It\'s Justin!'),
+  (1,1,5,55555555,'It''s Justin!'),
   (2,5,5,55555555,NULL),
-  (3,3,1,66666666,NULL),
-  (4,4,1,66666666,NULL),
-  (5,1,3,88888888,'I\'m interested, please call me!');
+  (3,3,1,99999999,NULL),
+  (4,4,1,99999999,NULL),
+  (5,1,3,77777777,'I''m interested, please call me!');
 
 CREATE TABLE partOf (
   applicationID  Serial,
   documentID      Serial,
   PRIMARY KEY (applicationID, documentID),
   FOREIGN KEY (applicationID) REFERENCES Application (applicationID),
-  FOREIGN KEY (documentID) REFERENCES Supporting_Document1 (documentID)
+  FOREIGN KEY (documentID) REFERENCES Supporting_Document123 (documentID)
 );
 INSERT INTO partOf (applicationID, documentID) VALUES
   (1,4),
