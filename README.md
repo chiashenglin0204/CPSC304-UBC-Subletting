@@ -2,3 +2,6 @@
 
 ## ER Diagram
 ![ER Diagram](/Assets/ER_diagram.png)
+
+## Project Development Timeline
+![Project Development Timeline](/Assets/Timeline.jpg)

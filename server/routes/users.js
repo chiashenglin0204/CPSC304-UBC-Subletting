@@ -4,7 +4,7 @@ var router = express.Router();
 /* GET users listing. */
 router.get('/users', function (req, res, next) {
   const query = 'select * from users;'
-  console.log(`running ${query}`)
+  console.log(`running ${query}`);
   connection.query(query, { type: connection.QueryTypes.SELECT })
     .then(users => {
       console.log("ran query");
