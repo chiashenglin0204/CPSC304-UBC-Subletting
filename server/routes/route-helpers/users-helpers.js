@@ -3,21 +3,22 @@ var connection = require('../../database/sequelize.js');
 const createUser = async (req, res) => {
 	try {
 		if (
+            req.body.sid === null ||
 			req.body.userName === null ||
 			req.body.phoneNum === null ||
 			req.body.gender === null
 		)
 			return res.status(400).send('missing required parameter(s)');
-
+        console.log(req.body);
 		const insertUserRes = await connection.query(
 			`
-        INSERT INTO users ("name", "phone#", "gender")
-        VALUES (?, ?, ?)
+        INSERT INTO users ("sid", "name", "phone#", "gender", "email")
+        VALUES (?, ?, ?, ?, ?)
       `,
 
 			{
 				type: connection.QueryTypes.INSERT,
-				replacements: [req.body.userName, req.body.phoneNum, req.body.gender],
+				replacements: [req.body.sid, req.body.userName, req.body.phoneNum, req.body.gender, (req.body.email || null)],
 			}
 		);
            // console.log(insertUserRes);
