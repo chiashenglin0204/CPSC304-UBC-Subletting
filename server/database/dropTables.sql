@@ -1,0 +1,17 @@
+DROP TABLE IF EXISTS
+          "user", 
+          Subletter, 
+          Applicant, 
+          Supporting_Document123, 
+          Supporting_Document4, 
+          Residence, 
+          Room_In12, 
+          Room_In34, 
+          Room_In5, 
+          Amenity, 
+          has, 
+          Listing, 
+          Application, 
+          partOf, 
+          Viewing_Schedule123, 
+          Viewing_Schedule4;
