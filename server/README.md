@@ -12,7 +12,7 @@ npm start
 
 ## Setting up environment variables
 1. Create a folder in the root directory of the server folder called `.env`
-2. specify any environment variables
+2. specify any environment variables E.g.
     ```
     PORT=6969
     ```
