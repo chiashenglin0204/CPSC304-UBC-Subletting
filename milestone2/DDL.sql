@@ -5,7 +5,7 @@
 --       relations when introducing a foreign key.
 
 CREATE TABLE "user" (
-  sid     Integer   PRIMARY KEY,
+  sid     Serial   PRIMARY KEY,
   "phone#"  TEXT      NOT NULL,
   name    TEXT      NOT NULL,
   gender  CHAR(1)   NOT NULL,

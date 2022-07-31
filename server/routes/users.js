@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var createUser = require('./route-helpers/users-helpers');
 
 /* GET users listing. */
 router.get('/users', function (req, res, next) {
@@ -13,5 +14,7 @@ router.get('/users', function (req, res, next) {
     })
     .catch (error => console.error(error))
 })
+
+router.post('/createUser', createUser);
 
 module.exports = router;

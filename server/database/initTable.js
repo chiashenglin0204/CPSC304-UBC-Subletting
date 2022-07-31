@@ -11,7 +11,7 @@ const initUsers = async () => {
 		.query(
 			`
                 CREATE TABLE IF NOT EXISTS "users" (
-                sid     Integer   PRIMARY KEY,
+                sid     Serial   PRIMARY KEY,
                 "phone#"  TEXT      NOT NULL,
                 name    TEXT      NOT NULL,
                 gender  CHAR(1)   NOT NULL,
@@ -31,9 +31,9 @@ const initSubletters = async () => {
 			`
                 CREATE TABLE IF NOT EXISTS Subletter (
                 subID   Serial,
-                sid     Integer,
+                sid     Serial,
                 PRIMARY KEY (subID, sid),
-                FOREIGN KEY (sid) REFERENCES "user" (sid)
+                FOREIGN KEY (sid) REFERENCES "users" (sid)
                 );
             `,
 			{ type: connection.QueryTypes.CREATE }
@@ -48,9 +48,9 @@ const initApplicants = async () => {
 			`
                 CREATE TABLE IF NOT EXISTS Applicant (
                 applicantID   Serial,
-                sid           Integer,
+                sid           Serial,
                 PRIMARY KEY (applicantID, sid),
-                FOREIGN KEY (sid) REFERENCES "user" (sid)
+                FOREIGN KEY (sid) REFERENCES "users" (sid)
                 );
             `,
 			{ type: connection.QueryTypes.CREATE }
