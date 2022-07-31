@@ -6,7 +6,6 @@ var initTables = require('../../oldFileDump/chiasheng-javascript/initTable.js');
 
 /* GET home page. */
 router.get('/', async (req, res, next) => {
-	//await initTables();
 	res.render('index', { title: 'Express' });
 });
 

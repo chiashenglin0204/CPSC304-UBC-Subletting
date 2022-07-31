@@ -12,7 +12,7 @@ const createUser = async (req, res) => {
         console.log(req.body);
 		const insertUserRes = await connection.query(
 			`
-        INSERT INTO users ("sid", "name", "phone#", "gender", "email")
+        INSERT INTO "user" ("sid", "name", "phone#", "gender", "email")
         VALUES (?, ?, ?, ?, ?)
       `,
 
@@ -21,7 +21,9 @@ const createUser = async (req, res) => {
 				replacements: [req.body.sid, req.body.userName, req.body.phoneNum, req.body.gender, (req.body.email || null)],
 			}
 		);
-           // console.log(insertUserRes);
+
+        // insertUserRes[1] is the request status
+		//		1 = success
 		if (insertUserRes[1] === 1) {
 			return res.status(200).send('you have successfully created a user');
 		}
