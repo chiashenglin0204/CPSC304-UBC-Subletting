@@ -1,7 +1,8 @@
-var connection = require('sequelize');
+var connection = require('../database/sequelize.js');
+
 const initTables = async () => {
 	await initUsers();
-    await initSubletters();
+	await initSubletters();
 };
 
 const initUsers = async () => {
