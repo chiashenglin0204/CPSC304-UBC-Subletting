@@ -1,4 +1,4 @@
-var connection = require('../database/sequelize.js');
+var connection = require('../../server/database/sequelize.js');
 
 const initTables = async () => {
 	await initUsers();

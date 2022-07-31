@@ -1,12 +1,12 @@
 var express = require('express');
 var router = express.Router();
 var connection = require('../database/sequelize.js');
-var initTables = require('../database/initTable.js');
+var initTables = require('../../oldFileDump/chiasheng-javascript/initTable.js');
 
 
 /* GET home page. */
 router.get('/', async (req, res, next) => {
-	await initTables();
+	//await initTables();
 	res.render('index', { title: 'Express' });
 });
 
