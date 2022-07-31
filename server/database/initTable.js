@@ -46,7 +46,7 @@ const initApplicants = async () => {
 	await connection
 		.query(
 			`
-                CREATE TABLE Applicant (
+                CREATE TABLE IF NOT EXISTS Applicant (
                 applicantID   Serial,
                 sid           Integer,
                 PRIMARY KEY (applicantID, sid),
