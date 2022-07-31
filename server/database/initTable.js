@@ -3,6 +3,7 @@ var connection = require('../database/sequelize.js');
 const initTables = async () => {
 	await initUsers();
 	await initSubletters();
+    await initApplicants();
 };
 
 const initUsers = async () => {
@@ -38,6 +39,23 @@ const initSubletters = async () => {
 			{ type: connection.QueryTypes.CREATE }
 		)
 		.then(() => console.log('successfully created Subletters table'))
+		.catch(e => console.error(e.stack));
+};
+
+const initApplicants = async () => {
+	await connection
+		.query(
+			`
+                CREATE TABLE Applicant (
+                applicantID   Serial,
+                sid           Integer,
+                PRIMARY KEY (applicantID, sid),
+                FOREIGN KEY (sid) REFERENCES "user" (sid)
+                );
+            `,
+			{ type: connection.QueryTypes.CREATE }
+		)
+		.then(() => console.log('successfully created Applicants table'))
 		.catch(e => console.error(e.stack));
 };
 
