@@ -19,25 +19,33 @@ module.exports.getListingCountByRoomType = async (req, res) => {
 }
 
 /**
- * @param req.body.status REQUIRED
+ * @param req.body.roomType REQUIRED
  */
-module.exports.getMinPriceListings = async (req, res) => {
-    if (req.body.status === null)
+module.exports.getMinPriceListingsByRoomType = async (req, res) => {
+    if (req.body.roomType === null)
     return res.status(400).send('missing required params');
     
     try {
         const query = `
             SELECT *
             FROM listing l
-            WHERE rate = (
-                SELECT MIN(l2.rate)
-                FROM listing l2
-            ) AND status=?;
+            INNER JOIN room_in12 AS r
+                ON l.resID=r.resID AND l."room#"=r."room#"
+            INNER JOIN (
+                SELECT r.roomType, MIN(l.rate)
+                FROM listing l
+                INNER JOIN room_in12 AS r
+                    ON l.resID=r.resID AND l."room#"=r."room#"
+                WHERE l.status='AVAILABLE'
+                GROUP BY r.roomType
+            ) AS minRates
+                ON r.roomType=minRates.roomtype AND l.rate=minRates.min
+            WHERE r.roomType=?;
         `;
         const queryRes = await connection.query(query, {
             type: connection.QueryTypes.SELECT,
             replacements: [
-                req.body.status
+                req.body.roomType
             ]
         });
 

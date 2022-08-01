@@ -1,9 +1,9 @@
 var express = require('express');
 var router = express.Router();
-var { getListingCountByRoomType, getMinPriceListings } = require('./queryFunctions/listingFunctions');
+var { getListingCountByRoomType, getMinPriceListingsByRoomType } = require('./queryFunctions/listingFunctions');
 
 router.get('/countByRoomType', getListingCountByRoomType);
 
-router.get('/minPriceListing', getMinPriceListings)
+router.get('/minPriceListingByRoomType', getMinPriceListingsByRoomType)
 
 module.exports = router;
