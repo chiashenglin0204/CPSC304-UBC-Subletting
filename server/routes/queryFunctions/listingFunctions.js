@@ -1,6 +1,6 @@
 const connection = require('../../database/sequelize.js');
 
-module.exports.getListingCountByRoomType = async (req, res) => {
+module.exports.getListingCountForRoomTypes = async (req, res) => {
 	const query = `
         SELECT COUNT(l.listingID) as numListings, r.roomType
         FROM listing as l

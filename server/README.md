@@ -1,3 +1,18 @@
+# API Routes
+User Routes
+- `/users` - get all users
+- `/users/createUser` - create user
+    * body.sid REQUIRED
+    * body.userName REQUIRED
+    * body.phoneNum REQUIRED
+    * body.gender REQUIRED
+
+Listing Routes
+- `/listing/countForRoomTypes` - get # listings for each room type
+- `/listing/minPriceListingByRoomType` - get the cheapest available listing by roomType
+    * body.roomType REQUIRED
+        
+
 ## GET STARTED
 run `npm install` in the root directory of the server
 
