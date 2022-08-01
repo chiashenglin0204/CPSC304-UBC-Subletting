@@ -1,6 +1,6 @@
 var connection = require('../../database/sequelize.js');
 
-const createUser = async (req, res) => {
+module.exports.createUser = async (req, res) => {
 	try {
 		if (
             req.body.sid === null ||
@@ -9,7 +9,6 @@ const createUser = async (req, res) => {
 			req.body.gender === null
 		)
 			return res.status(400).send('missing required parameter(s)');
-        console.log(req.body);
 		const insertUserRes = await connection.query(
 			`
         INSERT INTO "user" ("sid", "name", "phone#", "gender", "email")
@@ -34,4 +33,14 @@ const createUser = async (req, res) => {
 	}
 };
 
-module.exports = createUser;
+module.exports.getUsers = async (req, res) => {
+	const query = 'select * from "user";';
+
+	try {
+		const queryRes = await connection.query(query, { type: connection.QueryTypes.SELECT });
+		return res.json(queryRes);
+	} catch (e) {
+		console.error(e);
+		return res.status(404).json(e);
+	}
+}
