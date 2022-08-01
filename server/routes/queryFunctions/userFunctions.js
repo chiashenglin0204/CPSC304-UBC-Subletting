@@ -1,20 +1,25 @@
 var connection = require('../../database/sequelize.js');
 
+/**
+ * @param req.body.sid REQUIRED
+ * @param req.body.userName REQUIRED
+ * @param req.body.phoneNum REQUIRED
+ * @param req.body.gender REQUIRED
+ */
 module.exports.createUser = async (req, res) => {
 	try {
 		if (
-            req.body.sid === null ||
-			req.body.userName === null ||
-			req.body.phoneNum === null ||
-			req.body.gender === null
+            req.body.sid === undefined ||
+			req.body.userName === undefined ||
+			req.body.phoneNum === undefined ||
+			req.body.gender === undefined
 		)
 			return res.status(400).send('missing required parameter(s)');
 		const insertUserRes = await connection.query(
 			`
-        INSERT INTO "user" ("sid", "name", "phone#", "gender", "email")
-        VALUES (?, ?, ?, ?, ?)
-      `,
-
+				INSERT INTO "user" ("sid", "name", "phone#", "gender", "email")
+				VALUES (?, ?, ?, ?, ?)
+      		`,
 			{
 				type: connection.QueryTypes.INSERT,
 				replacements: [req.body.sid, req.body.userName, req.body.phoneNum, req.body.gender, (req.body.email || null)],
@@ -41,6 +46,6 @@ module.exports.getUsers = async (req, res) => {
 		return res.json(queryRes);
 	} catch (e) {
 		console.error(e);
-		return res.status(404).json(e);
+		return res.status(404).json({ error: e });
 	}
 }
