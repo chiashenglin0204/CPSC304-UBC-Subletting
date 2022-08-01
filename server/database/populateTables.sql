@@ -88,14 +88,14 @@ INSERT INTO Listing (listingID, "room#", resID, subID, sid, dateListed, status, 
 
 INSERT INTO Application (applicationID, listingID, applicantID, sid, introduction) VALUES
   (1,1,5,55555555,'It''s Justin!'),
-  (2,5,5,55555555,NULL),
+  (2,5,1,99999999,NULL),
   (3,3,1,99999999,NULL),
   (4,4,1,99999999,NULL),
   (5,1,3,77777777,'I''m interested, please call me!');
 
 INSERT INTO partOf (applicationID, documentID) VALUES
   (1,4),
-  (2,5),
+  (2,1),
   (3,1),
   (3,2),
   (5,3);
