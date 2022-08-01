@@ -28,6 +28,8 @@ CREATE TABLE Subletter (
   sid     Integer,
   PRIMARY KEY (subID, sid),
   FOREIGN KEY (sid) REFERENCES "user" (sid)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
 );
 INSERT INTO Subletter (subID, sid) VALUES
   (1,11111111),
@@ -41,6 +43,8 @@ CREATE TABLE Applicant (
   sid           Integer,
   PRIMARY KEY (applicantID, sid),
   FOREIGN KEY (sid) REFERENCES "user" (sid)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
 );
 INSERT INTO Applicant (applicantID, sid) VALUES
   (1,99999999),
@@ -48,6 +52,17 @@ INSERT INTO Applicant (applicantID, sid) VALUES
   (3,77777777),
   (4,88888888),
   (5,55555555);
+
+CREATE TABLE Supporting_Document4 (
+  document    TEXT    PRIMARY KEY,
+  type        TEXT    NOT NULL
+);
+INSERT INTO Supporting_Document4 (document, type) VALUES
+  ('Bruno''s study permit','study permit'),
+  ('Bruno''s student id photocopy','student id'),
+  ('Gaga''s passport','government id'),
+  ('Justin''s passport','government id'),
+  ('Justin''s BC id','government id');
 
 -- Recombination:
 -- Supporting_Document1(documentID, applicantID),
@@ -60,6 +75,9 @@ CREATE TABLE Supporting_Document123 (
   sid           Serial    NOT NULL,
   document      TEXT      NOT NULL,
   FOREIGN KEY (applicantID, sid) REFERENCES Applicant (applicantID, sid)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  FOREIGN KEY (document) REFERENCES Supporting_Document4 (document)
     ON DELETE NO ACTION
     ON UPDATE CASCADE
 );
@@ -70,16 +88,6 @@ INSERT INTO Supporting_Document123 (documentID, applicantID, sid, document) VALU
   (4,5,55555555,'Justin''s passport'),
   (5,5,55555555,'Justin''s BC id');
 
-CREATE TABLE Supporting_Document4 (
-  document    TEXT    PRIMARY KEY,
-  type        TEXT    NOT NULL
-);
-INSERT INTO Supporting_Document4 (document, type) VALUES
-  ('Bruno''s study permit','study permit'),
-  ('Bruno''s student id photocopy','student id'),
-  ('Gaga''s passport','government id'),
-  ('Justin''s passport','government id'),
-  ('Justin''s BC id','government id');
 
 CREATE TABLE Residence (
   resID         Serial    PRIMARY KEY,
@@ -95,6 +103,35 @@ INSERT INTO Residence (resID, buildingName, streetAddress, minAge) VALUES
   (4,'Brock Commons-Tallwood House','5960 Student Union Blvd.',19),
   (5,'Ritsumeikan-UBC House','6363 Agronomy Road',18);
 
+
+CREATE TABLE Room_In5 (
+  numRooms      Integer   PRIMARY KEY,
+  numBathrooms  Integer
+);
+INSERT INTO Room_In5 (numRooms, numBathrooms) VALUES
+  (1,0),
+  (2,1),
+  (3,2),
+  (4,2),
+  (6,3);
+
+-- Recombination:
+-- Room_In3(roomType, hasKitchen),
+-- Room_In4(roomType, numRooms)
+--    --> Room_In3(roomType, hasKitchen, numRooms)
+CREATE TABLE Room_In34 (
+  roomType    TEXT      PRIMARY KEY,
+  hasKitchen  Boolean   NOT NULL,
+  numRooms    Integer   NOT NULL,
+  FOREIGN KEY (numRooms) REFERENCES Room_In5(numRooms)
+);
+INSERT INTO Room_In34 (roomType, hasKitchen, numRooms) VALUES
+  ('A','f',1),
+  ('B','t',2),
+  ('C','t',3),
+  ('D','t',4),
+  ('E','t',6);
+
 -- Recombination:
 -- Room_In1(room#, resID, roomType),
 -- Room_In2(room#, resID, gender)
@@ -107,6 +144,9 @@ CREATE TABLE Room_In12 (
   PRIMARY KEY ("room#", resID),
   FOREIGN KEY (resID) REFERENCES Residence (resID)
     ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  FOREIGN KEY (roomType) REFERENCES Room_in34 (roomType)
+    ON DELETE NO ACTION
     ON UPDATE CASCADE
 );
 INSERT INTO Room_In12 ("room#", resID, roomType, gender) VALUES
@@ -116,32 +156,6 @@ INSERT INTO Room_In12 ("room#", resID, roomType, gender) VALUES
   (408,2,'D','M'),
   (1210,4,'B','U');
 
--- Recombination:
--- Room_In3(roomType, hasKitchen),
--- Room_In4(roomType, numRooms)
---    --> Room_In3(roomType, hasKitchen, numRooms)
-CREATE TABLE Room_In34 (
-  roomType    TEXT      PRIMARY KEY,
-  hasKitchen  Boolean   NOT NULL,
-  numRooms    Integer   NOT NULL
-);
-INSERT INTO Room_In34 (roomType, hasKitchen, numRooms) VALUES
-  ('A','f',1),
-  ('B','t',2),
-  ('C','t',3),
-  ('D','t',4),
-  ('E','t',6);
-
-CREATE TABLE Room_In5 (
-  numRooms      Integer   PRIMARY KEY,
-  numBathrooms  Integer
-);
-INSERT INTO Room_In5 (numRooms, numBathrooms) VALUES
-  (1,0),
-  (2,1),
-  (3,2),
-  (4,2),
-  (6,3);
 
 CREATE TABLE Amenity (
   type    TEXT      PRIMARY KEY
@@ -201,10 +215,10 @@ CREATE TABLE Application (
   sid             Serial  NOT NULL,
   introduction    TEXT,
   FOREIGN KEY (listingID) REFERENCES Listing (listingID)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE CASCADE,
   FOREIGN KEY (applicantID, sid) REFERENCES Applicant (applicantID, sid)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE CASCADE
 );
 INSERT INTO Application (applicationID, listingID, applicantID, sid, introduction) VALUES
@@ -218,7 +232,9 @@ CREATE TABLE partOf (
   applicationID  Serial,
   documentID      Serial,
   PRIMARY KEY (applicationID, documentID),
-  FOREIGN KEY (applicationID) REFERENCES Application (applicationID),
+  FOREIGN KEY (applicationID) REFERENCES Application (applicationID)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
   FOREIGN KEY (documentID) REFERENCES Supporting_Document123 (documentID)
 );
 INSERT INTO partOf (applicationID, documentID) VALUES
@@ -240,7 +256,7 @@ CREATE TABLE Viewing_Schedule123 (
   viewingTime     TIME      NOT NULL,
   UNIQUE (applicationID),
   FOREIGN KEY (applicationID) REFERENCES Application (applicationID)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE CASCADE
 );
 INSERT INTO Viewing_Schedule123 (viewingID, applicationID, viewingDate, viewingTime) VALUES
@@ -255,7 +271,7 @@ CREATE TABLE Viewing_Schedule4 (
   address         TEXT,
   UNIQUE (applicationID),
   FOREIGN KEY (applicationID) REFERENCES Application (applicationID)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE CASCADE
 );
 INSERT INTO Viewing_Schedule4 (applicationID, address) VALUES

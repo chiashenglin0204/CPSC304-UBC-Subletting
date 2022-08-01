@@ -12,6 +12,8 @@ CREATE TABLE IF NOT EXISTS Subletter (
   sid     Integer,
   PRIMARY KEY (subID, sid),
   FOREIGN KEY (sid) REFERENCES "user" (sid)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS Applicant (
@@ -19,6 +21,13 @@ CREATE TABLE IF NOT EXISTS Applicant (
   sid           Integer,
   PRIMARY KEY (applicantID, sid),
   FOREIGN KEY (sid) REFERENCES "user" (sid)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS Supporting_Document4 (
+  document    TEXT    PRIMARY KEY,
+  type        TEXT    NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS Supporting_Document123 (
@@ -27,13 +36,11 @@ CREATE TABLE IF NOT EXISTS Supporting_Document123 (
   sid           Serial    NOT NULL,
   document      TEXT      NOT NULL,
   FOREIGN KEY (applicantID, sid) REFERENCES Applicant (applicantID, sid)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  FOREIGN KEY (document) REFERENCES Supporting_Document4 (document)
     ON DELETE NO ACTION
     ON UPDATE CASCADE
-);
-
-CREATE TABLE IF NOT EXISTS Supporting_Document4 (
-  document    TEXT    PRIMARY KEY,
-  type        TEXT    NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS Residence (
@@ -44,6 +51,18 @@ CREATE TABLE IF NOT EXISTS Residence (
   UNIQUE (buildingName, streetAddress)
 );
 
+CREATE TABLE IF NOT EXISTS Room_In5 (
+  numRooms      Integer   PRIMARY KEY,
+  numBathrooms  Integer
+);
+
+CREATE TABLE IF NOT EXISTS Room_In34 (
+  roomType    TEXT      PRIMARY KEY,
+  hasKitchen  Boolean   NOT NULL,
+  numRooms    Integer   NOT NULL,
+  FOREIGN KEY (numRooms) REFERENCES Room_In5(numRooms)
+);
+
 CREATE TABLE IF NOT EXISTS Room_In12 (
   "room#"     Integer,
   resID     Serial,
@@ -52,18 +71,10 @@ CREATE TABLE IF NOT EXISTS Room_In12 (
   PRIMARY KEY ("room#", resID),
   FOREIGN KEY (resID) REFERENCES Residence (resID)
     ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  FOREIGN KEY (roomType) REFERENCES Room_in34 (roomType)
+    ON DELETE NO ACTION
     ON UPDATE CASCADE
-);
-
-CREATE TABLE IF NOT EXISTS Room_In34 (
-  roomType    TEXT      PRIMARY KEY,
-  hasKitchen  Boolean   NOT NULL,
-  numRooms    Integer   NOT NULL
-);
-
-CREATE TABLE IF NOT EXISTS Room_In5 (
-  numRooms      Integer   PRIMARY KEY,
-  numBathrooms  Integer
 );
 
 CREATE TABLE IF NOT EXISTS Amenity (
@@ -106,10 +117,10 @@ CREATE TABLE IF NOT EXISTS Application (
   sid             Serial  NOT NULL,
   introduction    TEXT,
   FOREIGN KEY (listingID) REFERENCES Listing (listingID)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE CASCADE,
   FOREIGN KEY (applicantID, sid) REFERENCES Applicant (applicantID, sid)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE CASCADE
 );
 
@@ -117,7 +128,9 @@ CREATE TABLE IF NOT EXISTS partOf (
   applicationID  Serial,
   documentID      Serial,
   PRIMARY KEY (applicationID, documentID),
-  FOREIGN KEY (applicationID) REFERENCES Application (applicationID),
+  FOREIGN KEY (applicationID) REFERENCES Application (applicationID)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
   FOREIGN KEY (documentID) REFERENCES Supporting_Document123 (documentID)
 );
 
@@ -128,7 +141,7 @@ CREATE TABLE IF NOT EXISTS Viewing_Schedule123 (
   viewingTime     TIME      NOT NULL,
   UNIQUE (applicationID),
   FOREIGN KEY (applicationID) REFERENCES Application (applicationID)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE CASCADE
 );
 
@@ -137,6 +150,6 @@ CREATE TABLE IF NOT EXISTS Viewing_Schedule4 (
   address         TEXT,
   UNIQUE (applicationID),
   FOREIGN KEY (applicationID) REFERENCES Application (applicationID)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE CASCADE
 );
