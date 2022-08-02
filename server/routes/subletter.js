@@ -1,11 +1,7 @@
 var express = require('express');
 var router = express.Router();
-var {
-	createUser,
-	updateUser,
-	getUser,
-} = require('./route-helpers/user-helpers');
-// var updateUser = require('./route-helpers/user-helpers')
+// var createUser = require('./route-helpers/users-helpers');
+var { selectApplicationOrListingByName } = require('./route-helpers/subletter-helpers');
 /* GET users listing. */
 // router.get('/users', function (req, res, next) {
 //   const query = 'select * from users;'
@@ -19,8 +15,10 @@ var {
 //     .catch (error => console.error(error))
 // })
 
-router.post('/createUser', createUser);
-router.post('/updateUser', updateUser);
-router.get('/', getUser);
+//router.post('/createApplication', createApplication);
+router.get(
+	'/selectApplicationOrListingByName',
+	selectApplicationOrListingByName
+);
 
 module.exports = router;
