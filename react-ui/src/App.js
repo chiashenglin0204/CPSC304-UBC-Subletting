@@ -4,15 +4,24 @@ import Typography from '@mui/material/Typography';
 import { useEffect, useState } from 'react';
 
 function App() {
-  const [dbData, setDbData] = useState('')
+  const [dbData, setDbData] = useState();
+
+  const fetchUsersJSON = async () => {
+    const response = await fetch("http://localhost:3001/users/");
+    if (!response.ok) {
+      const message = `An error has occured: ${response.status}`;
+      throw new Error(message);
+    }
+
+    const users = await response.json();
+    console.log(users);
+    return users;
+  }
 
   useEffect(() => {
-    fetch("http://localhost:3001/users", { mode: "no-cors" })
-            .then(res => {
-              console.log(res);
-              res.json();
-            });
-  });
+    fetchUsersJSON()
+      .then((res) => setDbData(res));
+  }, []);
 
   return (
     <div className="App">
@@ -21,7 +30,7 @@ function App() {
           Edit <code>src/App.js</code> and save to reload.
         </p>
         <Typography variant="body1">
-          {dbData}
+          {String(dbData)}
         </Typography>
       </header>
     </div>
