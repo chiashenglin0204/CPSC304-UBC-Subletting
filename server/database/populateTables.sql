@@ -23,19 +23,19 @@ INSERT INTO Applicant (applicantID, sid) VALUES
   (4,88888888),
   (5,55555555);
 
-INSERT INTO Supporting_Document123 (documentID, applicantID, sid, document) VALUES
-  (1,1,99999999,'Bruno''s study permit'),
-  (2,1,99999999,'Bruno''s student id photocopy'),
-  (3,3,77777777,'Gaga''s passport'),
-  (4,5,55555555,'Justin''s passport'),
-  (5,5,55555555,'Justin''s BC id');
-
 INSERT INTO Supporting_Document4 (document, type) VALUES
   ('Bruno''s study permit','study permit'),
   ('Bruno''s student id photocopy','student id'),
   ('Gaga''s passport','government id'),
   ('Justin''s passport','government id'),
   ('Justin''s BC id','government id');
+
+INSERT INTO Supporting_Document123 (documentID, applicantID, sid, document) VALUES
+  (1,1,99999999,'Bruno''s study permit'),
+  (2,1,99999999,'Bruno''s student id photocopy'),
+  (3,3,77777777,'Gaga''s passport'),
+  (4,5,55555555,'Justin''s passport'),
+  (5,5,55555555,'Justin''s BC id');
 
 INSERT INTO Residence (resID, buildingName, streetAddress, minAge) VALUES
   (1,'Place Vanier','1935 Lower Mall',NULL),
@@ -44,12 +44,12 @@ INSERT INTO Residence (resID, buildingName, streetAddress, minAge) VALUES
   (4,'Brock Commons-Tallwood House','5960 Student Union Blvd.',19),
   (5,'Ritsumeikan-UBC House','6363 Agronomy Road',18);
 
-INSERT INTO Room_In12 ("room#", resID, roomType, gender) VALUES
-  (101,1,'A','F'),
-  (202,1,'C','M'),
-  (304,1,'C','F'),
-  (408,2,'D','M'),
-  (1210,4,'B','U');
+INSERT INTO Room_In5 (numRooms, numBathrooms) VALUES
+  (1,0),
+  (2,1),
+  (3,2),
+  (4,2),
+  (6,3);
 
 INSERT INTO Room_In34 (roomType, hasKitchen, numRooms) VALUES
   ('A','f',1),
@@ -58,12 +58,12 @@ INSERT INTO Room_In34 (roomType, hasKitchen, numRooms) VALUES
   ('D','t',4),
   ('E','t',6);
 
-INSERT INTO Room_In5 (numRooms, numBathrooms) VALUES
-  (1,0),
-  (2,1),
-  (3,2),
-  (4,2),
-  (6,3);
+INSERT INTO Room_In12 ("room#", resID, roomType, gender) VALUES
+  (101,1,'A','F'),
+  (202,1,'C','M'),
+  (304,1,'C','F'),
+  (408,2,'D','M'),
+  (1210,4,'B','U');
 
 INSERT INTO Amenity (type) VALUES
   ('Front desk'),
@@ -88,14 +88,14 @@ INSERT INTO Listing (listingID, "room#", resID, subID, sid, dateListed, status, 
 
 INSERT INTO Application (applicationID, listingID, applicantID, sid, introduction) VALUES
   (1,1,5,55555555,'It''s Justin!'),
-  (2,5,5,55555555,NULL),
+  (2,5,1,99999999,NULL),
   (3,3,1,99999999,NULL),
   (4,4,1,99999999,NULL),
   (5,1,3,77777777,'I''m interested, please call me!');
 
 INSERT INTO partOf (applicationID, documentID) VALUES
   (1,4),
-  (2,5),
+  (2,1),
   (3,1),
   (3,2),
   (5,3);
