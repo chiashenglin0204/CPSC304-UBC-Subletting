@@ -1,5 +1,11 @@
 var connection = require('../../database/sequelize.js');
 
+/**
+ * @param req.body.sid REQUIRED 
+ * @param req.body.userName REQUIRED  
+ * @param req.body.phoneNum REQUIRED 
+ * @param req.body.gender REQUIRED
+ */
 module.exports.createUser = async (req, res) => {
 	try {
 		if (
@@ -40,6 +46,9 @@ module.exports.createUser = async (req, res) => {
 	}
 };
 
+/**
+ * @param req.body.sid REQUIRED 
+ */
 module.exports.updateUser = async (req, res) => {
 	try {
 		if (req.body.sid === null)
@@ -79,7 +88,9 @@ module.exports.updateUser = async (req, res) => {
 		return res.status(404).json({ error: err });
 	}
 };
-
+/**
+ * No param REQUIRED
+ */
 module.exports.getUser = async (req, res) => {
 
 	const query = 'SELECT * FROM "user"';

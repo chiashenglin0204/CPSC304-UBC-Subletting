@@ -1,7 +1,11 @@
 var express = require('express');
 var router = express.Router();
 // var createUser = require('./route-helpers/users-helpers');
-var { deleteApplicationById } = require('./route-helpers/application-helpers');
+var {
+	deleteApplicationById,
+	getApplicationBySid,
+	createApplication,
+} = require('./route-helpers/application-helpers');
 /* GET users listing. */
 // router.get('/users', function (req, res, next) {
 //   const query = 'select * from users;'
@@ -17,5 +21,8 @@ var { deleteApplicationById } = require('./route-helpers/application-helpers');
 
 //router.post('/createApplication', createApplication);
 router.delete('/deleteApplicationById', deleteApplicationById);
+router.get('/getApplicationBySid', getApplicationBySid);
+router.post('/createApplication', createApplication);
+
 
 module.exports = router;
