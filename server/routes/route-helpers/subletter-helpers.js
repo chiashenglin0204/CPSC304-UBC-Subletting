@@ -11,7 +11,9 @@ module.exports.selectApplicationOrListingByName = async (req, res) => {
 		}
 
 		var tableSelection = '';
+		var a = '';
 		if (req.body.isApplication) {
+			a = "AND " + `"listingid"` + " =" + `${req.body.listingid}`;
 			tableSelection = `"application"`;
 		} else {
 			tableSelection = `"listing"`;
@@ -30,12 +32,12 @@ module.exports.selectApplicationOrListingByName = async (req, res) => {
 				attributes += ', ';
 			}
 		}
-		// fullfill the rubric but could make subletter see other listing's application
+	
 		let q = `
                     Select ${attributes}
                     FROM ${tableSelection}
                     Natural Join "user" u
-                    Where u.name = ?
+                    Where u.name = ? ${a}
 		        `;
 
 		const selectApplicationOrListingByNameRes = await connection
