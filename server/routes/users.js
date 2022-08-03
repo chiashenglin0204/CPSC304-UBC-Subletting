@@ -4,7 +4,7 @@ var {
 	createUser,
 	updateUser,
 	getUser,
-} = require('./route-helpers/user-helpers');
+} = require('./queryFunctions/userFunctions');
 
 router.post('/createUser', createUser);
 router.post('/updateUser', updateUser);

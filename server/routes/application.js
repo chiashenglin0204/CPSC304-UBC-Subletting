@@ -4,7 +4,7 @@ var {
 	deleteApplicationById,
 	getApplicationBySid,
 	createApplication,
-} = require('./route-helpers/application-helpers');
+} = require('./queryFunctions/applicationFunctions');
 
 router.delete('/deleteApplicationById', deleteApplicationById);
 router.get('/getApplicationBySid', getApplicationBySid);

@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var { selectApplicationOrListingByName } = require('./route-helpers/subletter-helpers');
+var { selectApplicationOrListingByName } = require('./queryFunctions/subletterFunctions');
 
 router.get(
 	'/selectApplicationOrListingByName',

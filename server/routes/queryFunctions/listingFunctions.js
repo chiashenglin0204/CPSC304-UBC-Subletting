@@ -1,5 +1,8 @@
 const connection = require('../../database/sequelize.js');
 
+/**
+ * No param REQUIRED
+ */
 module.exports.getListingCountForRoomTypes = async (req, res) => {
 	const query = `
         SELECT COUNT(l.listingID) as numListings, r.roomType
