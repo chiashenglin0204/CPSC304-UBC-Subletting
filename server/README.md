@@ -6,6 +6,7 @@ User Routes
     * body.userName REQUIRED
     * body.phoneNum REQUIRED
     * body.gender REQUIRED
+    * body.email
 
 Listing Routes
 - `/listing/countForRoomTypes` - get # listings for each room type

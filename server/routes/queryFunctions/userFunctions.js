@@ -5,6 +5,7 @@ var connection = require('../../database/sequelize.js');
  * @param req.body.userName REQUIRED
  * @param req.body.phoneNum REQUIRED
  * @param req.body.gender REQUIRED
+ * @param req.body.email
  */
 module.exports.createUser = async (req, res) => {
 	try {
