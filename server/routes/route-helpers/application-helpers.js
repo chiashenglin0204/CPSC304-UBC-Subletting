@@ -18,7 +18,7 @@ module.exports.deleteApplicationById = async (req, res) => {
 				}
 			)
 			console.log(deleteApplicationRes);
-			return res.json(deleteApplicationRes);
+			return res.status(200).send('successfully delete application with applicationid ' + `${req.body.applicationId}`);
 
 		
 	} catch (err) {
