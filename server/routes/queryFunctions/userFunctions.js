@@ -15,7 +15,12 @@ module.exports.createUser = async (req, res) => {
 			req.body.phoneNum === undefined ||
 			req.body.gender === undefined
 		)
-			return res.status(400).send('missing required parameter(s)');
+			return res.status(400).send(`missing required parameter(s): 
+										sid: ${req.body.sid}, 
+										userName: ${req.body.userName}, 
+										phoneNum: ${req.body.phoneNum}, 
+										gender: ${req.body.gender}
+										email: ${req.body.email}`);
 		const insertUserRes = await connection.query(
 			`
 				INSERT INTO "user" ("sid", "name", "phone#", "gender", "email")

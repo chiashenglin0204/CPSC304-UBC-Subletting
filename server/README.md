@@ -7,6 +7,16 @@ User Routes
     * body.phoneNum REQUIRED
     * body.gender REQUIRED
     * body.email
+    * EXAMPLE BODY
+    ```
+    {
+        "sid": 222,
+        "userName": "1",
+        "phoneNum": "222",
+        "gender": "M",
+        "email": "4324@gmail.com"
+    }
+    ```
 
 Listing Routes
 - `/listing/countForRoomTypes` - get # listings for each room type

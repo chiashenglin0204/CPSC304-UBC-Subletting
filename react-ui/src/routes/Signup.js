@@ -1,44 +1,42 @@
-import { Button, FormControl, FormControlLabel, FormLabel, Grid, Radio, RadioGroup, TextField, Typography } from '@mui/material'
+import {
+  Button,
+  FormControl,
+  FormControlLabel,
+  FormLabel,
+  Grid,
+  Radio,
+  RadioGroup,
+  TextField,
+  Typography,
+} from '@mui/material'
 import React, { useState } from 'react'
+import { createUser } from '../requests/userRequests'
 import './Signup.css'
 
 const defaultValues = {
   sid: '',
-  'phone#': '',
-  name: '',
+  phoneNum: '',
+  userName: '',
   gender: '',
   email: '',
 }
 
 const Signup = () => {
-	const [formValues, setFormValues] = useState(defaultValues);
-  const [dbData, setDbData] = useState()
-
-
-  const fetchUsersJSON = async () => {
-    const response = await fetch('http://localhost:3001/users/createUser')
-    if (!response.ok) {
-      const message = `An error has occured: ${response.status}`
-      throw new Error(message)
-    }
-
-    const users = await response.json()
-    console.log(users)
-    return users
-  }
+  const [formValues, setFormValues] = useState(defaultValues);
 
   const handleInputChange = (e) => {
-    const { name, value } = e.target;
+    const { name, value } = e.target
     setFormValues({
       ...formValues,
       [name]: value,
-    });
-  };
+    })
+  }
 
   const handleSubmit = (event) => {
-    const JSONdata = JSON.stringify(formValues);
-    event.preventDefault()
-    console.log(JSONdata)
+    event.preventDefault();
+    const res = createUser(JSON.stringify(formValues));
+    /** TODO: error handling */
+    console.log(res);
   }
 
   return (
@@ -60,20 +58,20 @@ const Signup = () => {
         <Grid item>
           <TextField
             id="phone#-input"
-            name="phone#"
+            name="phoneNum"
             label="Phone #"
             type="text"
-            value={formValues['phone#']}
+            value={formValues.phoneNum}
             onChange={handleInputChange}
           />
         </Grid>
         <Grid item>
           <TextField
             id="name-input"
-            name="name"
+            name="userName"
             label="Name"
             type="text"
-            value={formValues.name}
+            value={formValues.userName}
             onChange={handleInputChange}
           />
         </Grid>
