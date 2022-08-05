@@ -7,7 +7,7 @@ var {
 } = require('./queryFunctions/userFunctions');
 
 router.post('/createUser', createUser);
-router.post('/updateUser', updateUser);
+router.put('/updateUser', updateUser);
 router.get('/', getUser);
 
 module.exports = router;
