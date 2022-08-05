@@ -1,4 +1,3 @@
-
 /**
  * @param {string} httpMethod one of 'GET', 'POST', 'DELETE', 'PUT'
  * @param {string} url
@@ -21,4 +20,4 @@ export const fetchDbData = async (httpMethod, url, body = '') => {
 	if (jsonData.error) throw new Error(jsonData.error);
 	console.log(jsonData);
 	return jsonData;
-}
+};
