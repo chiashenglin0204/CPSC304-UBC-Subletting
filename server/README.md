@@ -1,6 +1,9 @@
 # API Routes
 User Routes
 - `GET` - `/users` - get all users
+- `GET` - `/users/byIdPhoneNum` - get user identified uniquely by sid and phone#
+    * body.sid REQUIRED
+    * body.phoneNumer REQUIRED
 - `POST` - `/users/createUser` - create user
     * body.sid REQUIRED
     * body.userName REQUIRED

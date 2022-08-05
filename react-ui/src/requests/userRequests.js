@@ -11,3 +11,5 @@ import { fetchDbData } from './CRUD';
  */
 export const createUser = (body) =>
   fetchDbData('POST', 'http://localhost:3001/users/createUser', body);
+
+// export const getUser = (body)

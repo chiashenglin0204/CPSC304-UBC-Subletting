@@ -12,7 +12,7 @@ module.exports.createApplication = async (req, res) => {
 			req.body.listingid === null ||
 			req.body.applicantid === null
 		)
-			return res.status(400).send('missing required parameter(s)');
+		return res.status(400).json({ error: 'missing required parameter(s)' });
 		console.log(req.body);
 		const queryRes = await connection.query(
 			`
@@ -51,7 +51,7 @@ module.exports.deleteApplicationById = async (req, res) => {
 	try {
 		if (req.body.applicationId === undefined) {
 			//console.log(req.query);
-			return res.status(400).send('missing required parameter(s)');
+			return res.status(400).json({ error: 'missing required parameter(s)' });
 		}
 
 		const deleteApplicationRes = await connection.query(
@@ -82,7 +82,7 @@ module.exports.deleteApplicationById = async (req, res) => {
 module.exports.getApplicationBySid = async (req, res) => {
 	if (req.body.sid === undefined) {
 		//console.log(req.query);
-		return res.status(400).send('missing required parameter(s)');
+		return res.status(400).json({ error: 'missing required parameter(s)' });
 	}
 
 	const query = 'SELECT * FROM "application" WHERE "sid" = ?';

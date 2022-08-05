@@ -13,7 +13,7 @@ module.exports.selectApplicationOrListingByName = async (req, res) => {
 			req.body.selectedName === undefined ||
 			(req.body.isApplication && req.body.listingid === undefined)
 		) {
-			return res.status(400).send('missing required parameter(s)');
+			return res.status(400).json({ error: 'missing required parameter(s)' });
 		}
 
 		var tableSelection = '';
@@ -24,8 +24,6 @@ module.exports.selectApplicationOrListingByName = async (req, res) => {
 		} else {
 			tableSelection = `"listing"`;
 		}
-
-		//console.log(req.body);
 		
 		// function to process user's specify attribute into SQL SELECT statement
 		// if no attributes specify, will return all the attributes
