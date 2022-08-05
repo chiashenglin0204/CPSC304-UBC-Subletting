@@ -66,18 +66,18 @@ module.exports.getUsers = async (req, res) => {
 
 /**
  * 
- * @param {*} req.body.sid REQUIRED
- * @param {*} req.body.phoneNum REQUIRED 
+ * @param {*} req.query.sid REQUIRED
+ * @param {*} req.query.phoneNum REQUIRED 
  */
 module.exports.getUserBySidPhoneNum = async (req, res) => {
   const query = 'SELECT * FROM "user" WHERE sid=? AND "phone#"=?';
-  if (req.body.sid === undefined || req.body.phoneNum === undefined)
-    return res.status(400).json({ error: 'missing required parameter(s)' });
+  if (req.query.sid === undefined || req.query.phoneNum === undefined)
+    return res.status(400).json({ error: 'missing required query parameter(s)' });
 
   try {
     const queryRes = await connection.query(query, {
       type: connection.QueryTypes.SELECT,
-      replacements: [req.body.sid, req.body.phoneNum],
+      replacements: [req.query.sid, req.query.phoneNum],
     });
     return res.json(queryRes);
   } catch (e) {
