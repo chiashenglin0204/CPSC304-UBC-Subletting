@@ -1,26 +1,26 @@
 # API Routes
 User Routes
-- `/users` - get all users
-- `/users/createUser` - create user
+- `GET` - `/users` - get all users
+- `POST` - `/users/createUser` - create user
     * body.sid REQUIRED
     * body.userName REQUIRED
     * body.phoneNum REQUIRED
     * body.gender REQUIRED
-- `/users/updateUser` - update user
+- `POST` - `/users/updateUser` - update user
     * body.sid REQUIRED 
 
 Subletter Routes
-- `/subletter/selectApplicationOrListingByName` - select attribute of users from application OR listing based on userName specified (only subletter could do this)
+- `GET` - `/subletter/selectApplicationOrListingByName` - select attribute of users from application OR listing based on userName specified (only subletter could do this)
     * body.isApplication REQUIRED 
     * body.selectedName REQUIRED  
     * body.listingid REQUIRED WHEN req.body.isApplication is TRUE
 
 Application Routes
-- `/application/getApplicationBySid` - get application by sid (only applicant could do this)
+- `GET` - `/application/getApplicationBySid` - get application by sid (only applicant could do this)
     * body.sid REQUIRED 
-- `/application/deleteApplicationById` - delete application by applicationid
+- `DELETE` - `/application/deleteApplicationById` - delete application by applicationid
     * body.applicantionid REQUIRED  
-- `/application/createApplication` - create application
+- `POST` - `/application/createApplication` - create application
     * body.sid REQUIRED 
     * body.listingid REQUIRED  
     * body.applicantid REQUIRED  
@@ -37,8 +37,8 @@ Application Routes
     ```
 
 Listing Routes
-- `/listing/countForRoomTypes` - get # listings for each room type
-- `/listing/minPriceListingByRoomType` - get the cheapest available listing by roomType
+- `GET` - `/listing/countForRoomTypes` - get # listings for each room type
+- `GET` - `/listing/minPriceListingByRoomType` - get the cheapest available listing by roomType
     * body.roomType REQUIRED
         
 
