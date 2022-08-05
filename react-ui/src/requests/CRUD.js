@@ -1,14 +1,19 @@
 
-export const post = async (url, body) => {
+/**
+ * @param {string} httpMethod one of 'GET', 'POST', 'DELETE', 'PUT'
+ * @param {string} url
+ * @param {string} body as json string created from JSON.stringify()
+ */
+export const fetchDbData = async (httpMethod, url, body = '') => {
 	const response = await fetch(url, {
-		method: 'POST',
+		method: httpMethod,
 		headers: {
 			'Content-Type': 'application/json',
 		},
 		body: body,
 	});
 	if (!response.ok) {
-		const message = `An error has occured: ${response.status}: ${response}`;
+		const message = `error ${response.status}: ${response}`;
 		throw new Error(message);
 	}
 
@@ -16,22 +21,4 @@ export const post = async (url, body) => {
 	if (jsonData.error) throw new Error(jsonData.error);
 	console.log(jsonData);
 	return jsonData;
-};
-
-export const get = async (url, body) => {
-    const response = await fetch(url, {
-        method: 'GET',
-		headers: {
-			'Content-Type': 'application/json',
-		},
-		body: body,
-    });
-    if (!response.ok) {
-        const message = `An error has occured: ${response.status}`;
-        throw new Error(message);
-    }
-
-    const users = await response.json();
-    console.log(users);
-    return users;
-};
+}
