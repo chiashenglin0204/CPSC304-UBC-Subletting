@@ -6,6 +6,24 @@ User Routes
     * body.userName REQUIRED
     * body.phoneNum REQUIRED
     * body.gender REQUIRED
+- `/users/updateUser` - update user
+    * body.sid REQUIRED 
+
+Subletter Routes
+- `/subletter/selectApplicationOrListingByName` - select attribute of users from application OR listing based on userName specified (only subletter could do this)
+    * body.isApplication REQUIRED 
+    * body.selectedName REQUIRED  
+    * body.listingid REQUIRED WHEN req.body.isApplication is TRUE
+
+Application Routes
+- `/application/getApplicationBySid` - get application by sid (only applicant could do this)
+    * body.sid REQUIRED 
+- `/application/deleteApplicationById` - delete application by applicationid
+    * body.applicantionid REQUIRED  
+- `/application/createApplication` - create application
+    * body.sid REQUIRED 
+    * body.listingid REQUIRED  
+    * body.applicantid REQUIRED  
     * body.email
     * EXAMPLE BODY
     ```
@@ -23,6 +41,7 @@ Listing Routes
 - `/listing/minPriceListingByRoomType` - get the cheapest available listing by roomType
     * body.roomType REQUIRED
         
+
 
 ## GET STARTED
 run `npm install` in the root directory of the server
