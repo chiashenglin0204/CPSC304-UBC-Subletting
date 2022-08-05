@@ -6,6 +6,9 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Login from './routes/Login';
 import Signup from './routes/Signup';
 import Dashboard from './routes/Dashboard';
+import Subletter from './routes/Subletter';
+import Applicant from './routes/Applicant';
+import DashboardLanding from './components/DashboardLanding';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -14,9 +17,10 @@ root.render(
 			<Routes>
 				<Route path="/" element={<Login />} />
 				<Route path="/signup" element={<Signup />} />
-				<Route path="/dashboard" element={<Dashboard />}>
-					{/* <Route path="/subletter" element={} />
-					<Route path="/applicant" element={} /> */}
+				<Route path="/" element={<Dashboard />}>
+					<Route path="/dashboard" element={<DashboardLanding />} />
+					<Route path="/dashboard/subletter" element={<Subletter />} />
+					<Route path="/dashboard/applicant" element={<Applicant />} />
 				</Route>
 			</Routes>
 		</BrowserRouter>
