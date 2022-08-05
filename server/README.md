@@ -6,7 +6,7 @@ User Routes
     * body.userName REQUIRED
     * body.phoneNum REQUIRED
     * body.gender REQUIRED
-- `POST` - `/users/updateUser` - update user
+- `PUT` - `/users/updateUser` - update user
     * body.sid REQUIRED 
 
 Subletter Routes
