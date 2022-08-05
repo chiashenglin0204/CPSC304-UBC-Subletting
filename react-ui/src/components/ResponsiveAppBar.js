@@ -52,8 +52,8 @@ const ResponsiveNavMenu = (props) => {
 				>
 					{pages.map((page) => (
 						<Button
-							key={page}
-							onClick={handleCloseNavMenu}
+							key={page[0]}
+							onClick={() => handleCloseNavMenu(page[1])}
 							sx={{
 								my: 2,
 								color: 'white',
@@ -64,7 +64,7 @@ const ResponsiveNavMenu = (props) => {
 								},
 							}}
 						>
-							{page}
+							{page[0]}
 						</Button>
 					))}
 				</Box>
@@ -162,8 +162,9 @@ const ResponsiveAppBar = (props) => {
 		setAnchorElUser(event.currentTarget);
 	};
 
-	const handleCloseNavMenu = () => {
+	const handleCloseNavMenu = (redirectURL) => {
 		setAnchorElNav(null);
+        navigate(redirectURL);
 	};
 
 	const handleCloseUserMenu = (redirectURL) => {
