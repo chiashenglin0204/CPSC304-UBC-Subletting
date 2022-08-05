@@ -10,4 +10,4 @@ import { fetchDbData } from './CRUD';
  * @returns {string} success status
  */
 export const createUser = (body) =>
-	fetchDbData('POST', 'http://localhost:3001/users/createUser', body);
+  fetchDbData('POST', 'http://localhost:3001/users/createUser', body);
