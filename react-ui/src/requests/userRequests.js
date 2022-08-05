@@ -12,4 +12,15 @@ import { fetchDbData } from './CRUD';
 export const createUser = (body) =>
   fetchDbData('POST', 'http://localhost:3001/users/createUser', body);
 
-// export const getUser = (body)
+/**
+ *
+ * @param {string} searchParams URL search params created from new URLSearchParams({ sid: 0, phoneNum: '0' })
+ *                              sid REQUIRED
+ *                              phoneNum REQUIRED
+ * @returns {Object} json object with user or error
+ */
+export const getUser = (searchParams) =>
+  fetchDbData(
+    'GET',
+    'http://localhost:3001/users/byIdPhoneNum?' + searchParams
+  );
