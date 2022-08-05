@@ -107,9 +107,12 @@ const ResponsiveNavMenu = (props) => {
 						}}
 					>
 						{pages.map((page) => (
-							<MenuItem key={page} onClick={handleCloseNavMenu}>
+							<MenuItem
+								key={page[0]}
+								onClick={() => handleCloseNavMenu(page[1])}
+							>
 								<Typography textAlign="center">
-									{page}
+									{page[0]}
 								</Typography>
 							</MenuItem>
 						))}
@@ -122,7 +125,7 @@ const ResponsiveNavMenu = (props) => {
 					variant="h5"
 					noWrap
 					component="a"
-					href=""
+					href="/dashboard"
 					sx={{
 						mr: 2,
 						display: { xs: 'flex', md: 'none' },
@@ -164,7 +167,7 @@ const ResponsiveAppBar = (props) => {
 
 	const handleCloseNavMenu = (redirectURL) => {
 		setAnchorElNav(null);
-        navigate(redirectURL);
+		navigate(redirectURL);
 	};
 
 	const handleCloseUserMenu = (redirectURL) => {

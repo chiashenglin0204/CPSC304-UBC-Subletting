@@ -5,10 +5,10 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Login from './routes/Login';
 import Signup from './routes/Signup';
-import Dashboard from './routes/Dashboard';
-import Subletter from './routes/Subletter';
-import Applicant from './routes/Applicant';
-import DashboardLanding from './components/DashboardLanding';
+import Dashboard from './routes/dashboard/Dashboard';
+import Subletter from './routes/dashboard/Subletter';
+import Applicant from './routes/dashboard/Applicant';
+import DashboardLanding from './routes/dashboard/DashboardLanding';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
