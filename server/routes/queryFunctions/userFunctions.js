@@ -38,7 +38,7 @@ module.exports.createUser = async (req, res) => {
     // insertUserRes[1] is the request status
     //		1 = success
     if (insertUserRes[1] === 1) {
-      return res.status(200).send('you have successfully created a user');
+      return res.status(200).json({success: 'you have successfully created a user'});
     }
 
     return res.status(404).json({ error: 'db error' });

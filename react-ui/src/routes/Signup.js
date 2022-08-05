@@ -32,9 +32,9 @@ const Signup = () => {
     });
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    const res = createUser(JSON.stringify(formValues));
+    const res = await createUser(JSON.stringify(formValues));
     /** TODO: error handling */
     console.log(res);
   };
