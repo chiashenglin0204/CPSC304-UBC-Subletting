@@ -3,11 +3,11 @@ var router = express.Router();
 var {
 	createUser,
 	updateUser,
-	getUser,
+	getUsers,
 } = require('./queryFunctions/userFunctions');
 
 router.post('/createUser', createUser);
 router.put('/updateUser', updateUser);
-router.get('/', getUser);
+router.get('/', getUsers);
 
 module.exports = router;
