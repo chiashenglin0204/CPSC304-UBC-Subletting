@@ -8,7 +8,7 @@ CREATE TABLE IF NOT EXISTS "user" (
 );
 
 CREATE TABLE IF NOT EXISTS Subletter (
-  subID   Serial, 
+  subID   Serial UNIQUE, 
   sid     Integer,
   PRIMARY KEY (subID, sid),
   FOREIGN KEY (sid) REFERENCES "user" (sid)
