@@ -139,9 +139,9 @@ const ResponsiveNavMenu = (props) => {
 };
 
 ResponsiveNavMenu.propTypes = {
-  handleOpenNavMenu: PropTypes.func.isRequired,
-  anchorElNav: PropTypes.node.isRequired,
-  handleCloseNavMenu: PropTypes.func.isRequired,
+  handleOpenNavMenu: PropTypes.func,
+  anchorElNav: PropTypes.any,
+  handleCloseNavMenu: PropTypes.func,
   pages: PropTypes.array.isRequired,
 };
 

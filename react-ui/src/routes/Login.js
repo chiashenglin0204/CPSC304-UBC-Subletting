@@ -9,6 +9,8 @@ import {
   Typography,
 } from '@mui/material';
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useUserCountext } from '../components/UserContext';
 import { getUser } from '../requests/userRequests';
 import './Login.css';
 
@@ -20,6 +22,8 @@ const defaultValues = {
 const Login = () => {
   const [formValues, setFormValues] = useState(defaultValues);
   const [open, setOpen] = useState(false);
+  const { setUser } = useUserCountext();
+  const navigate = useNavigate();
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -37,6 +41,13 @@ const Login = () => {
       })
     );
     if (!res || res.error || res.length === 0) setOpen(true);
+    else {
+      setUser({
+        sid: res[0].sid,
+        phoneNum: res[0]['phone#'],
+      });
+      navigate('/dashboard');
+    }
     console.log(res);
   };
 

@@ -41,7 +41,7 @@ const Signup = () => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <Grid container alignItems="center" justify="center" direction="column">
+      <Grid container alignItems="center" justifyContent="center" direction="column">
         <Grid item>
           <Typography variant="h3">SIGN UP FOR OUR PYRAMID SCHEME</Typography>
         </Grid>
