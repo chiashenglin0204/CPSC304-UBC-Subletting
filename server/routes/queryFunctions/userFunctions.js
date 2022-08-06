@@ -120,7 +120,7 @@ module.exports.updateUser = async (req, res) => {
     // insertUserRes[1] is the request status
     //		1 = success
     if (updateUserRes[1] === 1) {
-      return res.status(200).send('you have successfully update a user');
+      return res.status(200).json({success: 'you have successfully update a user'});
     }
 
     return res.status(404).json({ error: 'db error' });
