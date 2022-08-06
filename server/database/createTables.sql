@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS Subletter (
 );
 
 CREATE TABLE IF NOT EXISTS Applicant (  
-  applicantID   Serial,
+  applicantID   Serial UNIQUE,
   sid           Integer,
   PRIMARY KEY (applicantID, sid),
   FOREIGN KEY (sid) REFERENCES "user" (sid)

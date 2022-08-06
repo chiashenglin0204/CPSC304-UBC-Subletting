@@ -9,19 +9,19 @@ INSERT INTO "user" (sid, "phone#", name, gender, email) VALUES
   (88888888,6044084808,'Dua Lipa','F','dualipaleviting@student.ubc.ca'),
   (99999999,6042987793,'Bruno Mars','M','gotmepayingherrent@protonmail.com');
 
-INSERT INTO Subletter (subID, sid) VALUES
-  (1,11111111),
-  (2,22222222),
-  (3,33333333),
-  (4,44444444),
-  (5,55555555);
+INSERT INTO Subletter (sid) VALUES
+  (11111111),
+  (22222222),
+  (33333333),
+  (44444444),
+  (55555555);
 
-INSERT INTO Applicant (applicantID, sid) VALUES
-  (1,99999999),
-  (2,66666666),
-  (3,77777777),
-  (4,88888888),
-  (5,55555555);
+INSERT INTO Applicant (sid) VALUES
+  (99999999),
+  (66666666),
+  (77777777),
+  (88888888),
+  (55555555);
 
 INSERT INTO Supporting_Document4 (document, type) VALUES
   ('Bruno''s study permit','study permit'),
