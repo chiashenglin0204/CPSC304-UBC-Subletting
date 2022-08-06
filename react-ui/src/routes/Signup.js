@@ -32,16 +32,16 @@ const Signup = () => {
     });
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    const res = createUser(JSON.stringify(formValues));
+    const res = await createUser(JSON.stringify(formValues));
     /** TODO: error handling */
     console.log(res);
   };
 
   return (
     <form onSubmit={handleSubmit}>
-      <Grid container alignItems="center" justify="center" direction="column">
+      <Grid container alignItems="center" justifyContent="center" direction="column">
         <Grid item>
           <Typography variant="h3">SIGN UP FOR OUR PYRAMID SCHEME</Typography>
         </Grid>

@@ -4,7 +4,7 @@ const connection = require('../../database/sequelize.js');
  * No param REQUIRED
  */
 module.exports.getListingCountForRoomTypes = async (req, res) => {
-	const query = `
+  const query = `
         SELECT COUNT(l.listingID) as numListings, r.roomType
         FROM listing as l
         INNER JOIN room_in12 as r 
@@ -12,24 +12,26 @@ module.exports.getListingCountForRoomTypes = async (req, res) => {
         GROUP BY r.roomType
         ORDER BY r.roomType;
     `;
-	try {
-		const queryRes = await connection.query(query, { type: connection.QueryTypes.SELECT });
-		return res.json(queryRes);
-	} catch (e) {
-		console.error(e);
-		return res.status(404).json({ error: e });
-	}
-}
+  try {
+    const queryRes = await connection.query(query, {
+      type: connection.QueryTypes.SELECT,
+    });
+    return res.json(queryRes);
+  } catch (e) {
+    console.error(e);
+    return res.status(404).json({ error: e });
+  }
+};
 
 /**
  * @param req.body.roomType REQUIRED
  */
 module.exports.getMinPriceListingsByRoomType = async (req, res) => {
-    if (req.body.roomType === null)
-    return res.status(400).send('missing required params');
-    
-    try {
-        const query = `
+  if (req.body.roomType === null)
+    return res.status(400).json({ error: 'missing required params' });
+
+  try {
+    const query = `
             SELECT *
             FROM listing l
             INNER JOIN room_in12 AS r
@@ -45,36 +47,35 @@ module.exports.getMinPriceListingsByRoomType = async (req, res) => {
                 ON r.roomType=minRates.roomtype AND l.rate=minRates.min
             WHERE r.roomType=?;
         `;
-        const queryRes = await connection.query(query, {
-            type: connection.QueryTypes.SELECT,
-            replacements: [
-                req.body.roomType
-            ]
-        });
+    const queryRes = await connection.query(query, {
+      type: connection.QueryTypes.SELECT,
+      replacements: [req.body.roomType],
+    });
 
-        return res.json(queryRes);
-    } catch (e) {
-        console.error(e);
-        return res.status(404).json({ error: e });
-    }
-}
-
+    return res.json(queryRes);
+  } catch (e) {
+    console.error(e);
+    return res.status(404).json({ error: e });
+  }
+};
 
 module.exports.getPopularListings = async (req, res) => {
-    const query = `
+  const query = `
     SELECT      listingID, count(*)
     FROM        Application
     GROUP BY    listingID
     HAVING      count(*) > 1
     ORDER BY    count(*);
     `;
-    try {
-        const queryRes = await connection.query(query, { type: connection.QueryTypes.SELECT });
-        return res.json(queryRes);
-    } catch (e) {
-        console.error(e);
-        return res.status(404).json({ error: e});
-    }
+  try {
+    const queryRes = await connection.query(query, {
+      type: connection.QueryTypes.SELECT,
+    });
+    return res.json(queryRes);
+  } catch (e) {
+    console.error(e);
+    return res.status(404).json({ error: e });
+  }
 };
 
 // /**
@@ -108,7 +109,7 @@ module.exports.getPopularListings = async (req, res) => {
 //                 req.body.att5 || null
 //             ]
 //         });
-        
+
 //     } catch (e) {
 //         console.error(e);
 //         return res.status(404).json({ error: e});
@@ -118,9 +119,9 @@ module.exports.getPopularListings = async (req, res) => {
 // module.exports.getCustomListingsDisplay = async (req, res) => {
 //     var givenAtt = 0;
 //     if (req.body.buildingName == true) givenAtt++;
-//     if (req.body.rate == true) givenAtt++; 
-//     if (req.body.streetAddress == true) givenAtt++; 
-//     if (req.body.minAge == true) givenAtt++; 
+//     if (req.body.rate == true) givenAtt++;
+//     if (req.body.streetAddress == true) givenAtt++;
+//     if (req.body.minAge == true) givenAtt++;
 //     if (req.body.dateListed == true) givenAtt++;
 
 //     if (givenAtt < 3) return res.status(400).send('missing 1-3 parameters');
@@ -141,7 +142,7 @@ module.exports.getPopularListings = async (req, res) => {
 //                 !req.body.dateListed || datelisted
 //             ]
 //         });
-        
+
 //     } catch (e) {
 //         console.error(e);
 //         return res.status(404).json({ error: e});
