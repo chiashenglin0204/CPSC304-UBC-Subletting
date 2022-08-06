@@ -77,7 +77,7 @@ module.exports.createApplicant = async (req, res) => {
  */
 module.exports.getApplicantBySid = async (req, res) => {
   const query = 'SELECT * FROM Applicant WHERE sid=?';
-  if (req.body.sid === undefined)
+  if (req.query.sid === undefined)
     return res
       .status(400)
       .json({ error: 'missing required query parameter(s)' });
@@ -85,7 +85,7 @@ module.exports.getApplicantBySid = async (req, res) => {
   try {
     const queryRes = await connection.query(query, {
       type: connection.QueryTypes.SELECT,
-      replacements: [req.body.sid],
+      replacements: [req.query.sid],
     });
     return res.json(queryRes);
   } catch (e) {

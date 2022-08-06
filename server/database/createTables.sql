@@ -8,18 +8,20 @@ CREATE TABLE IF NOT EXISTS "user" (
 );
 
 CREATE TABLE IF NOT EXISTS Subletter (
-  subID   Serial UNIQUE, 
+  subID   Serial, 
   sid     Integer,
-  PRIMARY KEY (subID, sid),
+  PRIMARY KEY (sid),
+  UNIQUE (sid, subID),
   FOREIGN KEY (sid) REFERENCES "user" (sid)
     ON DELETE CASCADE
     ON UPDATE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS Applicant (  
-  applicantID   Serial UNIQUE,
+  applicantID   Serial,
   sid           Integer,
-  PRIMARY KEY (applicantID, sid),
+  PRIMARY KEY (sid),
+  UNIQUE (sid, applicantID),
   FOREIGN KEY (sid) REFERENCES "user" (sid)
     ON DELETE CASCADE
     ON UPDATE CASCADE

@@ -14,7 +14,7 @@ User Routes
 
 Subletter Routes
 - `GET` - `/subletter/getBySid`
-    * body.sid REQUIRED 
+    * query.sid REQUIRED 
 - `GET` - `/subletter/selectApplicationOrListingByName` - select attribute of users from application OR listing based on userName specified (only subletter could do this)
     * body.isApplication REQUIRED 
     * body.selectedName REQUIRED  
@@ -24,7 +24,7 @@ Subletter Routes
 
 Applicant Routes
 - `GET` - `/applicant/getBySid`
-    * body.sid REQUIRED 
+    * query.sid REQUIRED 
 - `POST` - `/applicant/createApplicant`
     * body.sid REQUIRED 
 
