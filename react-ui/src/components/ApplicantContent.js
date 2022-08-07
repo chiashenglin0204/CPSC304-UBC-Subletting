@@ -1,6 +1,9 @@
 import { Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
-import { getListingCountForRoomTypes } from '../requests/listingRequests';
+import {
+  getAllListings,
+  getListingCountForRoomTypes,
+} from '../requests/listingRequests';
 import ListingsTable from './ListingsTable';
 
 const ApplicantContent = () => {
@@ -16,21 +19,29 @@ const ApplicantContent = () => {
     };
 
     const fetchListings = async () => {
-      const res = await 
-    }
+      const res = await getAllListings();
+      const error = !res || res.error;
+      if (!error) setListings(res);
+      console.log(res);
+    };
 
     fetchListingCounts().catch((err) => console.log(err));
+    fetchListings().catch((err) => console.log(err));
   }, []);
 
   return (
     <>
       <Typography variant="h2">Listings:</Typography>
-      {listingCountsByRoomType ? (listingCountsByRoomType.map((countByRoomType) => (
-      <Typography variant="h4" key={countByRoomType.roomtype}>
-        {`Room Type ${countByRoomType.roomtype} has ${countByRoomType.numlistings} listings`}
-      </Typography>
-      ))) : ( <Typography variant='h4'> Filler </Typography>)}
-      <ListingsTable />
+      {listingCountsByRoomType ? (
+        listingCountsByRoomType.map((countByRoomType) => (
+          <Typography variant="h4" key={countByRoomType.roomtype}>
+            {`Room Type ${countByRoomType.roomtype} has ${countByRoomType.numlistings} listings`}
+          </Typography>
+        ))
+      ) : (
+        <Typography variant="h4"> Filler </Typography>
+      )}
+      {listings && <ListingsTable rows={listings}/>}
     </>
   );
 };

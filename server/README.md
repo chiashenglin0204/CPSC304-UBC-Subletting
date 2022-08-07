@@ -53,6 +53,7 @@ Listing Routes
 - `GET` - `/listing/countForRoomTypes` - get # listings for each room type
 - `GET` - `/listing/minPriceListingByRoomType` - get the cheapest available listing by roomType
     * body.roomType REQUIRED
+- `GET` - `/listing/getAll` - get all listings
         
 
 
