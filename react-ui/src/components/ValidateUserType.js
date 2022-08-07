@@ -17,9 +17,9 @@ const ValidateUserType = (props) => {
     createUserType,
     getUserType,
     registerUserTypeButtonLabel,
-
+    content,
   } = props;
-  
+
   const { user, setUser } = useUserContext();
   const [isUserType, setIsUserType] = useState(null);
   const [openDialog, setOpenDialog] = useState(false);
@@ -71,7 +71,7 @@ const ValidateUserType = (props) => {
       </Dialog>
     </>
   ) : (
-    <Typography variant="h2">CONTENT GOES HERE</Typography>
+    content ?? <Typography>Hello</Typography>
   );
 };
 
@@ -79,7 +79,7 @@ ValidateUserType.propTypes = {
   createUserType: PropTypes.func.isRequired,
   getUserType: PropTypes.func.isRequired,
   registerUserTypeButtonLabel: PropTypes.string,
-
+  content: PropTypes.any,
 }
 
 export default ValidateUserType;
