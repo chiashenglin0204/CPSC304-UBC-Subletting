@@ -1,10 +1,11 @@
 /* eslint-disable no-unused-vars */
 import {
-	Button,
-	Radio,
-	RadioGroup,
-	TextField,
-	Typography,
+  Button,
+  FormControl,
+  Radio,
+  RadioGroup,
+  TextField,
+  Typography,
 } from '@mui/material';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -14,146 +15,156 @@ import React, { useState, useEffect } from 'react';
 import { selectApplicationOrListingByName } from '../../requests/subletterSelectionRequest';
 
 const defaultValues = {
-	isApplication: false,
-	selectedName: '',
-	listingid: undefined,
-	attributeSelected: undefined,
-	needSid: false,
-	needPhoneNum: false,
+  isApplication: false,
+  selectedName: '',
+  listingid: undefined,
+  attributeSelected: undefined,
+  needSid: false,
+  needPhoneNum: false,
 };
 
 const SubletterSelection = () => {
-	//const [isApplication, setApplication] = useState(false);
-	//const [isListing, setListing] = useState(false);
-	const [isSid, setIsSid] = useState(false);
+  //const [isApplication, setApplication] = useState(false);
+  //const [isListing, setListing] = useState(false);
+  const [isSid, setIsSid] = useState(false);
 
-	const [isPhoneNum, setIsPhoneNum] = useState(false);
-	// const [isName, setIsName] = useState(false);
-	// const [isEmail, setIsEmail] = useState(false);
-	// const [isGender, setIsGender] = useState(false);
-	const [formValues, setFormValues] = useState(defaultValues);
+  const [isPhoneNum, setIsPhoneNum] = useState(false);
+  // const [isName, setIsName] = useState(false);
+  // const [isEmail, setIsEmail] = useState(false);
+  // const [isGender, setIsGender] = useState(false);
+  const [formValues, setFormValues] = useState(defaultValues);
 
-	const handleSubmit = async event => {
-		event.preventDefault();
-		console.log(isSid);
-		console.log(isPhoneNum);
-		setFormValues(
-			...{
-				...formValues,
-				['needSid']: isSid,
-				['needPhoneNum']: isPhoneNum,
-			}
-		);
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    console.log(isSid);
+    console.log(isPhoneNum);
+    setFormValues(
+      ...{
+        ...formValues,
+        ['needSid']: isSid,
+        ['needPhoneNum']: isPhoneNum,
+      }
+    );
 
-		var res = await selectApplicationOrListingByName(formValues);
-		console.log(formValues);
-		console.log(new URLSearchParams(formValues));
-		console.log(JSON.stringify(formValues));
-		/** TODO: error handling */
-		console.log(res);
-	};
+    console.log('form value: ' + formValues);
+    var res = await selectApplicationOrListingByName(formValues);
+    console.log(new URLSearchParams(formValues));
+    console.log(JSON.stringify(formValues));
+    /** TODO: error handling */
+    console.log(res);
+  };
 
-	// useEffect(() => {
-	// 	// action on update of movies
-		
-	// }, [la]);
+  // useEffect(() => {
+  // 	// action on update of movies
 
-	const handleInputChange1 = e => {
-		let { name, value } = e.target;
-		// if (name === 'needSid') setIsSid(e.target.checked);
-		// if (name === 'needPhoneNum') setIsPhoneNum(e.target.checked);
-		setFormValues({
-			...formValues,
-			[name]: value,
-		});
-	};
+  // }, [la]);
 
-	// useEffect(() => {
-	// 	setFormValues({
-	// 		...formValues,
-	// 		['needSid']: !isSid,
-	// 	});
-	// }, [isSid]);
+  const handleInputChange1 = (e) => {
+    let { name, value } = e.target;
+    console.log(`${name}: ${value}`);
+    // if (name === 'needSid') setIsSid(e.target.checked);
+    // if (name === 'needPhoneNum') setIsPhoneNum(e.target.checked);
+    setFormValues({
+      ...formValues,
+      [name]: value,
+    });
+  };
 
-	// useEffect(() => {
-	// 	setFormValues({
-	// 		...formValues,
-	// 		['needPhoneNum']: !isPhoneNum,
-	// 	});
-	// }, [isPhoneNum]);
+  // useEffect(() => {
+  // 	setFormValues({
+  // 		...formValues,
+  // 		['needSid']: !isSid,
+  // 	});
+  // }, [isSid]);
 
-	return (
-		<div>
-			<div>
-				<Typography>THIS IS Subletter Selection Tab</Typography>
-				<RadioGroup
-					name="isApplication"
-					value={formValues.isApplication}
-					onChange={handleInputChange1}
-					row
-				>
-					<FormControlLabel
-						value="true"
-						control={<Radio size="small" />}
-						label="Application"
-					/>
-					<FormControlLabel
-						value="false"
-						control={<Radio size="small" />}
-						label="Listing"
-					/>
-				</RadioGroup>
-			</div>
-			<TextField
-				id="sid-input"
-				name="selectedName"
-				label="userName"
-				type="text"
-				value={formValues.selectedName}
-				onChange={handleInputChange1}
-			/>
-			<div>
-				<FormGroup>
-					<FormControlLabel
-						control={
-							<Checkbox
-								checked={isSid}
-								onChange={e => {
-									setIsSid(e.target.checked);
-								}}
-							/>
-						}
-						label="sid"
-					/>
+  // useEffect(() => {
+  // 	setFormValues({
+  // 		...formValues,
+  // 		['needPhoneNum']: !isPhoneNum,
+  // 	});
+  // }, [isPhoneNum]);
 
-					<FormControlLabel
-						control={
-							<Checkbox
-								checked={isPhoneNum}
-								onChange={e => {
-									setIsPhoneNum(e.target.checked);
-								}}
-							/>
-						}
-						label="phone#"
-					/>
-				</FormGroup>
-			</div>
-
-			{/* <div>{isApplication ? <div>i love you</div> : <div>i hate you</div>}</div> */}
-			<Button
-				variant="contained "
-				onClick={e => {
-					console.log('here');
-					handleSubmit(e);
-				}}
-			>
-				{' '}
-				Submit
-			</Button>
-			<div></div>
-		</div>
-	);
+  return (
+    <div>
+      <form onSubmit={handleSubmit}>
+        <div>
+          <Typography>THIS IS Subletter Selection Tab</Typography>
+          <FormControl>
+            <RadioGroup
+              name="isApplication"
+              value={formValues.isApplication}
+              onChange={handleInputChange1}
+              row
+            >
+              <FormControlLabel
+                key="Application"
+                value={true}
+                control={<Radio size="small" />}
+                label="Application"
+              />
+              <FormControlLabel
+                key="Listing"
+                value={false}
+                control={<Radio size="small" />}
+                label="Listing"
+              />
+            </RadioGroup>
+          </FormControl>
+        </div>
+        <TextField
+          id="name-input"
+          name="selectedName"
+          label="User Name"
+          type="text"
+          value={formValues.selectedName}
+          onChange={handleInputChange1}
+        />
+        <div>
+          <FormGroup>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  id="sid-checkbox"
+                  name="needSid"
+                  value={formValues.needSid}
+                  onChange={(event) =>
+                    handleInputChange1({
+                      ...event,
+                      target: { ...event.target, value: event.target.checked },
+                    })
+                  }
+                />
+              }
+              label="sid"
+            />
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={isPhoneNum}
+                  onChange={(e) => {
+                    setIsPhoneNum(e.target.checked);
+                  }}
+                />
+              }
+              label="phone#"
+            />
+          </FormGroup>
+        </div>
+        {/* <div>{isApplication ? <div>i love you</div> : <div>i hate you</div>}</div> */}
+        <Button
+          variant="contained "
+          onClick={(e) => {
+            console.log('here');
+            handleSubmit(e);
+          }}
+        >
+          {' '}
+          Submit
+        </Button>
+        <div></div>
+      </form>
+    </div>
+  );
 };
 
 //
