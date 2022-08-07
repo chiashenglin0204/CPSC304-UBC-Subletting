@@ -83,7 +83,7 @@ module.exports.getPopularListings = async (req, res) => {
  */
 module.exports.getAllListings = async (req, res) => {
   const query = `
-      SELECT l.listingid, l.datelisted, l.status, l.rate, l.startdate, l.enddate, r12.roomtype, r12.gender, r34.haskitchen, r34.numRooms, r5.numBathrooms
+      SELECT l.listingid AS id, l.datelisted, l.status, l.rate, l.startdate, l.enddate, r12.roomtype, r12.gender, r34.haskitchen, r34.numRooms, r5.numBathrooms
       FROM listing l
       NATURAL JOIN room_in12 r12
       NATURAL JOIN room_in34 r34
