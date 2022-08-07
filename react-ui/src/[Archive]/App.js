@@ -1,6 +1,6 @@
 import './App.css';
 import Typography from '@mui/material/Typography';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 function App() {
 	const [dbData, setDbData] = useState();
