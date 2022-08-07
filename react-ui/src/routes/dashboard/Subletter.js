@@ -1,8 +1,18 @@
-import { Typography } from '@mui/material';
 import React from 'react';
+import ValidateUserType from '../../components/ValidateUserType';
+import {
+  createSubletter,
+  getSubletter,
+} from '../../requests/subletterRequests';
 
 const Subletter = () => {
-  return <Typography>THIS IS SUBLETTER TAB</Typography>;
+  return (
+    <ValidateUserType
+      createUserType={createSubletter}
+      getUserType={getSubletter}
+      registerUserTypeButtonLabel="Become Subletter"
+    />
+  );
 };
 
 export default Subletter;

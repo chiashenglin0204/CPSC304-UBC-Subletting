@@ -14,7 +14,7 @@ UserContextProvider.propTypes = {
 };
 
 /**
- * 
+ *
  * @returns { object, function } returns an object containing the currently logged in user's SID and Phone#
  * How to use:
  *    const { user, setUser } = useUserContext()
@@ -26,7 +26,7 @@ UserContextProvider.propTypes = {
  *      sid: '420',
  *    })
  */
-const useUserCountext = () => {
+const useUserContext = () => {
   const context = React.useContext(UserContext);
   if (context === undefined) {
     throw new Error('useCount must be used within a CountProvider');
@@ -34,4 +34,4 @@ const useUserCountext = () => {
   return context;
 };
 
-export { UserContextProvider, useUserCountext };
+export { UserContextProvider, useUserContext };

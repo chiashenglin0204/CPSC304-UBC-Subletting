@@ -1,7 +1,7 @@
 import ResponsiveAppBar from '../../components/ResponsiveAppBar';
 import React, { useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
-import { useUserCountext } from '../../components/UserContext';
+import { useUserContext } from '../../components/UserContext';
 
 const pages = [
   ['Subletter', '/dashboard/subletter'],
@@ -15,7 +15,7 @@ const settings = [
 ];
 
 const Dashboard = () => {
-  const {user} = useUserCountext();
+  const {user} = useUserContext();
   
   /**
    * testing function to validate that user context is working after redirecting from Login
