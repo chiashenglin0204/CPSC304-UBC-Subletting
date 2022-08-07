@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 const dateGetter = ({ value }) => value && new Date(value);
 
 const columns = [
+  { field: 'id', headerName: 'ID', width: 70 },
   {
     field: 'datelisted',
     headerName: 'Date Listed',
@@ -14,7 +15,13 @@ const columns = [
   },
   { field: 'status', headerName: 'Status', width: 100 },
   { field: 'rate', headerName: 'Monthly Rate', width: 100, type: 'number' },
-  { field: 'startdate', headerName: 'Start Date', width: 100 },
+  {
+    field: 'startdate',
+    headerName: 'Start Date',
+    width: 100,
+    type: 'date',
+    valueGetter: dateGetter,
+  },
   {
     field: 'enddate',
     headerName: 'End Date',
@@ -26,8 +33,6 @@ const columns = [
     field: 'roomtype',
     headerName: 'Type',
     width: 100,
-    type: 'date',
-    valueGetter: dateGetter,
   },
   { field: 'gender', headerName: 'Gender', width: 100 },
   { field: 'haskitchen', headerName: 'Kitchen', width: 100, type: 'boolean' },
