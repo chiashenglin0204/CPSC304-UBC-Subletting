@@ -8,3 +8,4 @@ import { fetchDbData } from "./CRUD";
    'GET',
    'http://localhost:3001/listing/countForRoomTypes'
  );
+ 
