@@ -17,7 +17,6 @@ const defaultValues = {
 	isApplication: false,
 	selectedName: '',
 	listingid: undefined,
-	attributeSelected: undefined,
 	needSid: false,
 	needPhoneNum: false,
 };
@@ -37,13 +36,12 @@ const SubletterSelection = () => {
 		event.preventDefault();
 		console.log(isSid);
 		console.log(isPhoneNum);
-		setFormValues(
-			...{
-				...formValues,
-				['needSid']: isSid,
-				['needPhoneNum']: isPhoneNum,
-			}
-		);
+		const n = {
+			...formValues,
+			needSid: isSid,
+			needPhoneNum: isPhoneNum,
+		};
+		setFormValues(n);
 
 		var res = await selectApplicationOrListingByName(formValues);
 		console.log(formValues);
@@ -55,7 +53,7 @@ const SubletterSelection = () => {
 
 	// useEffect(() => {
 	// 	// action on update of movies
-		
+
 	// }, [la]);
 
 	const handleInputChange1 = e => {
