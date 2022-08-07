@@ -1,5 +1,5 @@
-import { Typography } from '@mui/material';
 import React from 'react';
+import SubletterContent from '../../components/SubletterContent';
 import ValidateUserType from '../../components/ValidateUserType';
 import {
   createSubletter,
@@ -12,7 +12,7 @@ const Subletter = () => {
       createUserType={createSubletter}
       getUserType={getSubletter}
       registerUserTypeButtonLabel="Become Subletter"
-      content={<Typography>Bullshit</Typography>}
+      content={<SubletterContent />}
     />
   );
 };
