@@ -78,6 +78,28 @@ module.exports.getPopularListings = async (req, res) => {
   }
 };
 
+/**
+ * No param REQUIRED
+ */
+module.exports.getAllListings = async (req, res) => {
+  const query = `
+      SELECT l.listingid AS id, l.datelisted, l.status, l.rate, l.startdate, l.enddate, r12.roomtype, r12.gender, r34.haskitchen, r34.numRooms, r5.numBathrooms
+      FROM listing l
+      NATURAL JOIN room_in12 r12
+      NATURAL JOIN room_in34 r34
+      NATURAL JOIN room_in5 r5;
+    `;
+  try {
+    const queryRes = await connection.query(query, {
+      type: connection.QueryTypes.SELECT,
+    });
+    return res.json(queryRes);
+  } catch (e) {
+    console.error(e);
+    return res.status(404).json({ error: e });
+  }
+};
+
 // /**
 //  * @param req.body.att1 REQUIRED
 //  * @param req.body.att2 REQUIRED

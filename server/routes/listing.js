@@ -5,6 +5,7 @@ var {
   getMinPriceListingsByRoomType,
   getPopularListings,
   getCustomListingsDisplay,
+  getAllListings,
 } = require('./queryFunctions/listingFunctions');
 
 router.get('/countForRoomTypes', getListingCountForRoomTypes);
@@ -12,6 +13,8 @@ router.get('/countForRoomTypes', getListingCountForRoomTypes);
 router.get('/minPriceListingByRoomType', getMinPriceListingsByRoomType);
 
 router.get('/popularlistings', getPopularListings);
+
+router.get('/getAll', getAllListings);
 
 // router.get('/customListingsDisplay', getCustomListingsDisplay)
 
