@@ -3,7 +3,7 @@
  * @param {string} url
  * @param {string} body as json string created from JSON.stringify()
  */
-export const fetchDbData = async (httpMethod, url, body = '') => {
+export const fetchDbData = async (httpMethod, url, body) => {
   const response = await fetch(url, {
     method: httpMethod,
     headers: {

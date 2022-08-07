@@ -1,9 +1,9 @@
 var connection = require('../../database/sequelize.js');
 
 /**
- * @param req.body.sid REQUIRED 
- * @param req.body.listingid REQUIRED  
- * @param req.body.applicantid REQUIRED  
+ * @param req.body.sid REQUIRED
+ * @param req.body.listingid REQUIRED
+ * @param req.body.applicantid REQUIRED
  */
 module.exports.createApplication = async (req, res) => {
 	try {
@@ -34,7 +34,9 @@ module.exports.createApplication = async (req, res) => {
 		// insertUserRes[1] is the request status
 		//		1 = success
 		if (queryRes[1] === 1) {
-			return res.status(200).send('you have successfully created a application');
+			return res
+				.status(200)
+				.send('you have successfully created a application');
 		}
 
 		return res.status(404).json({ error: 'db error' });
@@ -45,7 +47,7 @@ module.exports.createApplication = async (req, res) => {
 };
 
 /**
- * @param req.body.applicantionid REQUIRED  
+ * @param req.body.applicantionid REQUIRED
  */
 module.exports.deleteApplicationById = async (req, res) => {
 	try {
@@ -66,18 +68,19 @@ module.exports.deleteApplicationById = async (req, res) => {
 		console.log(deleteApplicationRes);
 		return res
 			.status(200)
-			.send(
-				'successfully delete application with applicationid ' +
-					`${req.body.applicationId}`
-			);
+			.json({
+				success:
+					'successfully delete application with applicationid ' +
+					`${req.body.applicationId}`,
+			});
 	} catch (err) {
 		return res.status(404).json({ error: err });
 	}
 };
 
 /**
- * 
- * @param req.body.sid REQUIRED 
+ *
+ * @param req.body.sid REQUIRED
  */
 module.exports.getApplicationBySid = async (req, res) => {
 	if (req.body.sid === undefined) {

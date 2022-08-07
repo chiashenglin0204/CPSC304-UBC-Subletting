@@ -9,5 +9,8 @@ import { fetchDbData } from './CRUD';
  * @param body.email
  * @returns {string} success status
  */
-export const createUser = (body) =>
-  fetchDbData('POST', 'http://localhost:3001/users/createUser', body);
+export const createUser = body =>
+	fetchDbData('POST', 'http://localhost:3001/users/createUser', body);
+
+export const updateUser = body =>
+	fetchDbData('PUT', 'http://localhost:3001/users/updateUser', body);
