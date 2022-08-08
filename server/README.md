@@ -27,6 +27,8 @@ Applicant Routes
     * query.sid REQUIRED 
 - `POST` - `/applicant/createApplicant`
     * body.sid REQUIRED 
+- `GET` - `/applicant/unfinishedApps` - find applications for which the applicant has yet to have included all of their supporting documents for
+    * body.applicantID REQUIRED
 
 Application Routes
 - `GET` - `/application/getApplicationBySid` - get application by sid (only applicant could do this)
@@ -54,8 +56,9 @@ Listing Routes
 - `GET` - `/listing/minPriceListingByRoomType` - get the cheapest available listing by roomType
     * body.roomType REQUIRED
 - `GET` - `/listing/getAll` - get all listings
-        
-
+- `GET` - `/listing/popularListings` - show all popular listing and their number of respective applications (from most to least popular)
+- `GET` - `/listing/simpleListingsDisplay` - display listings with minimal info (date listed, start date, end date, and monthly rate)
+    * body.minAge optional
 
 ## GET STARTED
 run `npm install` in the root directory of the server
