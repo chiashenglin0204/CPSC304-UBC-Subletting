@@ -69,7 +69,7 @@ module.exports.getPopularListings = async (req, res) => {
     WHERE       a.listingID = l.listingID
     GROUP BY    a.listingID
     HAVING      count(*) > 1
-    ORDER BY    count(*);
+    ORDER BY    count(*) DESC;
   `;
   try {
     const queryRes = await connection.query(query, {

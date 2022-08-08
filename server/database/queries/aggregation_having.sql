@@ -16,4 +16,4 @@ FROM        Application a, listing l
 WHERE       a.listingID = l.listingID
 GROUP BY    a.listingID
 HAVING      count(*) > 1
-ORDER BY    count(*);
+ORDER BY    count(*) DESC;
