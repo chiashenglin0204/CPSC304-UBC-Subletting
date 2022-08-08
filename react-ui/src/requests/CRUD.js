@@ -4,19 +4,20 @@
  * @param {string} body as json string created from JSON.stringify()
  */
 export const fetchDbData = async (httpMethod, url, body) => {
-  const response = await fetch(url, {
-    method: httpMethod,
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  };
+	const requestOptions = {
+		method: httpMethod,
+		headers: {
+			'Content-Type': 'application/json',
+		},
+	};
 
-  if (httpMethod != 'GET') requestOptions.body = body;
-  try {
-    const response = await fetch(url, requestOptions);
-    const jsonData = await response.json();
-    return jsonData;
-  } catch (e) {
-    console.log(e);
-  }
+	if (httpMethod != 'GET') requestOptions.body = body;
+	try {
+		const response = await fetch(url, requestOptions);
+		const jsonData = await response.json();
+		console.log(jsonData);
+		return jsonData;
+	} catch (e) {
+		console.log(e);
+	}
 };
