@@ -57,8 +57,8 @@ Listing Routes
     * body.roomType REQUIRED
 - `GET` - `/listing/getAll` - get all listings
 - `GET` - `/listing/popularListings` - show all popular listing and their number of respective applications (from most to least popular)
-- `GET` - `/listing/simpleListingsDisplay` - display listings with minimal info (date listed, start date, end date, and monthly rate)
-    * body.minAge optional
+- `GET` - `/listing/listingByGender` - display listings based on userinput for gender (F/M)
+    * body.gender REQUIRED
 
 ## GET STARTED
 run `npm install` in the root directory of the server

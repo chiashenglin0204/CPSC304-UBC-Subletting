@@ -104,33 +104,59 @@ module.exports.getAllListings = async (req, res) => {
 };
 
 /**
- * @param req.body.minAge OPTIONAL
+ * @param {req.body.gender} REQUIRED
  */
-module.exports.getSimpleListingsDisplay = async (req, res) => {
-  const query1 =`
-    SELECT  rate, dateListed, startDate, endDate
-    FROM    Listing;
+module.exports.getListingByGender = async (req, res) => {
+  if (req.body.gender == null) 
+    return res.status(400).json({ error: 'missing required params' });
+
+  const query = `
+    SELECT  l.listingID, l.dateListed, l.rate, r.roomType, r.gender
+    FROM    Listing l, Room_In12 r
+    WHERE   l.resID = r.resID AND r.gender=?;
   `;
-  const query2 =`
-    SELECT  rate, dateListed, startDate, endDate, minAge
-    FROM    Listing l, Residence r
-    WHERE   l.resID = r.resID;
-  `;
-  if (req.body.minAge == null || req.body.minAge == false) {
-    try {
-      const queryRes1 = await connection.query(query1, {type: connection.QueryTypes.SELECT});
-      return res.json(queryRes1);
-    } catch (e) {
-      console.error(e);
-      return res.status(404).json({ error: e});
-    }
-  } else {
-    try {
-      const queryRes2 = await connection.query(query2, {type: connection.QueryTypes.SELECT});
-      return res.json(queryRes2);
-    } catch (e) {
-      console.error(e);
-      return res.status(404).json({ error: e});
-    }
-  }
-}
+  
+  try {
+    const queryRes = await connection.query(query, {
+      type: connection.QueryTypes.SELECT,
+      replacements: [req.body.gender]
+    });
+    return res.json(queryRes);
+  } catch (e) {
+    console.error(e);
+    return res.status(404).json({ error: e });
+  };
+
+};
+
+// /**
+//  * @param req.body.minAge OPTIONAL
+//  */
+// module.exports.getSimpleListingsDisplay = async (req, res) => {
+//   const query1 =`
+//     SELECT  rate, dateListed, startDate, endDate
+//     FROM    Listing;
+//   `;
+//   const query2 =`
+//     SELECT  rate, dateListed, startDate, endDate, minAge
+//     FROM    Listing l, Residence r
+//     WHERE   l.resID = r.resID;
+//   `;
+//   if (req.body.minAge == null || req.body.minAge == false) {
+//     try {
+//       const queryRes1 = await connection.query(query1, {type: connection.QueryTypes.SELECT});
+//       return res.json(queryRes1);
+//     } catch (e) {
+//       console.error(e);
+//       return res.status(404).json({ error: e});
+//     }
+//   } else {
+//     try {
+//       const queryRes2 = await connection.query(query2, {type: connection.QueryTypes.SELECT});
+//       return res.json(queryRes2);
+//     } catch (e) {
+//       console.error(e);
+//       return res.status(404).json({ error: e});
+//     }
+//   }
+// }

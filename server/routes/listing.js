@@ -4,7 +4,7 @@ var {
   getListingCountForRoomTypes,
   getMinPriceListingsByRoomType,
   getPopularListings,
-  getSimpleListingsDisplay,
+  getListingByGender,
   getAllListings,
 } = require('./queryFunctions/listingFunctions');
 
@@ -16,6 +16,6 @@ router.get('/popularListings', getPopularListings);
 
 router.get('/getAll', getAllListings);
 
-router.get('/simpleListingsDisplay', getSimpleListingsDisplay)
+router.get('/listingByGender', getListingByGender)
 
 module.exports = router;
