@@ -112,9 +112,9 @@ module.exports.getListingByGender = async (req, res) => {
     return res.status(400).json({ error: 'missing required params' });
 
   const query = `
-    SELECT  l.listingID, l.dateListed, l.rate, r.roomType, r.gender
-    FROM    Listing l, Room_In12 r
-    WHERE   l.resID = r.resID AND r.gender=?;
+    SELECT  l.listingID as id, l.dateListed, l.status, l.rate, l.startDate, l.endDate, r12.roomtype, r12.gender, r34.haskitchen, r34.numRooms, r5.numBathrooms
+    FROM    Listing l, room_in12 r12, room_in34 r34, room_in5 r5
+    WHERE   l.resID = r12.resID AND l."room#"=r12."room#" AND r5.numRooms=r34.numRooms AND r34.roomType=r12.roomType AND r12.gender=?;  
   `;
   
   try {
@@ -122,7 +122,8 @@ module.exports.getListingByGender = async (req, res) => {
       type: connection.QueryTypes.SELECT,
       replacements: [req.query.gender]
     });
-    return res.json(queryRes);
+    // return res.json(queryRes);
+    return res.status(200).json(queryRes);
   } catch (e) {
     console.error(e);
     return res.status(404).json({ error: e });

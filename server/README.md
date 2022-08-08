@@ -57,7 +57,7 @@ Listing Routes
     * body.roomType REQUIRED
 - `GET` - `/listing/getAll` - get all listings
 - `GET` - `/listing/popularListings` - show all popular listing and their number of respective applications (from most to least popular)
-- `GET` - `/listing/listingByGender` - display listings based on userinput for gender (F/M)
+- `GET` - `/listing/genderFilter` - display listings based on userinput for gender (F/M)
     * query.gender REQUIRED
 
 ## GET STARTED

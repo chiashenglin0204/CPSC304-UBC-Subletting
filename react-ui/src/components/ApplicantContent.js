@@ -1,7 +1,11 @@
 // import { Typography } from '@mui/material';
 import {
+  Alert,
   Button,
+  Collapse,
   Divider,
+  IconButton,
+  TextField,
   Typography,
 } from '@mui/material';
 import React, { useEffect, useState } from 'react';
@@ -9,6 +13,7 @@ import {
   getAllListings,
   getListingCountForRoomTypes,
   getPopularListings,
+  getListingsByGender,
 } from '../requests/listingRequests';
 import {
   getAllApps,
@@ -20,6 +25,7 @@ import PopListingsTable from './PopListingsTable';
 // import ValidateUserType from './ValidateUserType';
 // import { useUserContext } from './UserContext';
 // const { user, setUser } = useUserContext();
+import CloseIcon from '@mui/icons-material/Close';
 
 
 const ApplicantContent = () => {
@@ -27,6 +33,8 @@ const ApplicantContent = () => {
   const [listings, setListings] = useState(null);
   const [popListings, setPopListings] = useState(null);
   const [applications, setApplications] = useState(null);
+  const [gender, setGender] = useState('');
+  const [alertOpen, setAlertOpen] = useState(false);
 
   /**
    * i need help extracting the student id from the validated user info
@@ -62,22 +70,11 @@ const ApplicantContent = () => {
 
     fetchApplications().catch((err) => console.log(err));
 
-    // const fetchPopListings = async () => {
-    //   const res = await getPopularListings();
-    //   const error = !res || res.error;
-    //   if (error) console.log(error);
-    //   else setPopListings(res);
-    //   console.log(res);
-    //   // setPopListings(false);
-    // }
-    
-    // fetchPopListings().catch((err) => console.log(err));
-
   }, []);
 
-  // setTimeout(() => {
-  //   setAlertOpen(false);
-  // }, 3000);
+  setTimeout(() => {
+    setAlertOpen(false);
+  }, 3000);
 
   const handleGetUnfinishedApps = async () => {
     const res = await getUnfinishedApps(
@@ -107,6 +104,23 @@ const ApplicantContent = () => {
     console.log('hide popular listings');
   };
 
+  const handleFindListingsByGender = async () => {
+    const res = await getListingsByGender(
+      new URLSearchParams({ gender: gender })
+    );
+    const error = !res || res.error || res.length === 0;
+    if (error) setAlertOpen(true);
+    else setListings(res);
+  };
+
+  const handleClearGenderFilter = async () => {
+    const res = await getAllListings();
+    const error = !res || res.error;
+    if (!error) setListings(res);
+    setGender('');
+  };
+
+
   return (
     <>
       <Typography variant="h2">Listings:</Typography>
@@ -119,6 +133,43 @@ const ApplicantContent = () => {
       ) : (
         <Typography variant="h4"> Filler </Typography>
       )}
+
+
+<Divider />
+      <Typography variant="h4">Cheapest listing finder</Typography>
+      <TextField
+        id="gender-input"
+        name="gender"
+        label="Gender"
+        variant="outlined"
+        value={gender}
+        onChange={(event) => setGender(event.target.value)}
+      />
+      <Button onClick={handleFindListingsByGender}>
+        {'Apply gender filter'}
+      </Button>
+      <Button onClick={handleClearGenderFilter}>{'Clear filter'}</Button>
+      <Collapse in={alertOpen}>
+        <Alert
+          severity="error"
+          action={
+            <IconButton
+              aria-label="close"
+              color="inherit"
+              size="small"
+              onClick={() => {
+                setAlertOpen(false);
+              }}
+            >
+              <CloseIcon fontSize="inherit" />
+            </IconButton>
+          }
+          sx={{ mb: 2 }}
+        >
+          No listing found
+        </Alert>
+      </Collapse>
+
       {listings && <ListingsTable rows={listings}/>}
 
 
