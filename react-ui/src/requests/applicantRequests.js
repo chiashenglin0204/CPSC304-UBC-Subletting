@@ -20,6 +20,11 @@ export const getApplicant = (searchParams) =>
     'http://localhost:3001/applicant/getBySid?' + searchParams
   );
 
+/**
+ *
+ * @param {Integer} searchParams sid REQUIRED
+ * @returns {Object} json object with application[0](applicantid, listingid, introduction) or error
+ */
 export const getAllApps = (searchParams) =>
   fetchDbData(
     'GET', 
@@ -28,7 +33,7 @@ export const getAllApps = (searchParams) =>
 
 /**
  * @param {string} searchParams applicantID required
- * @returns {Object} json object with array of applications
+ * @returns {Object} json object with applications[0](applicantid, listingid, introduction) or error
  */
 export const getUnfinishedApps = (searchParams) =>
   fetchDbData(

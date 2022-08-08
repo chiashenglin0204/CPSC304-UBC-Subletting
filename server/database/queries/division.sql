@@ -1,11 +1,11 @@
 -- DIVISION QUERY
 -- Applicant view: find applications for which the applicant has yet to have included all of their supporting documents for
-SELECT  a.applicationID
-FROM    Application a
-WHERE   a.applicantID = ?
+SELECT  a1.applicationID as id, a1.listingID, a1.introduction
+FROM    Application a1
+WHERE   a1.applicantID = ?
 EXCEPT (
-    SELECT  p1.applicationID
-    FROM    partOf p1
+    SELECT  DISTINCT p1.applicationID as id, a2.listingID, a2.introduction
+    FROM    partOf p1, application a2
     WHERE NOT EXISTS (
         (SELECT S.documentID
         FROM   Supporting_Document123 S

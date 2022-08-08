@@ -1,4 +1,9 @@
-import { Typography } from '@mui/material';
+// import { Typography } from '@mui/material';
+import {
+  Button,
+  Divider,
+  Typography,
+} from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import {
   getAllListings,
@@ -6,7 +11,7 @@ import {
 } from '../requests/listingRequests';
 import {
   getAllApps,
-  // getUnfinishedApps
+  getUnfinishedApps
 } from '../requests/applicantRequests';
 import ListingsTable from './ListingsTable';
 import ApplicationsTable from './ApplicationsTable';
@@ -24,6 +29,7 @@ const ApplicantContent = () => {
    * i need help extracting the student id from the validated user info
    */
   const sid = 99999999;
+  const applicantID = 1;
 
   useEffect(() => {
     const fetchListingCounts = async () => {
@@ -46,7 +52,8 @@ const ApplicantContent = () => {
     const fetchApplications = async () => {
       const res = await getAllApps(new URLSearchParams({ sid: sid })); //ValidateUserType.sid
       const error = !res || res.error;
-      if (!error) setApplications(res);
+      if (error) console.log(error);
+      else setApplications(res);
       console.log(res);
     }
 
@@ -54,14 +61,25 @@ const ApplicantContent = () => {
 
   }, []);
 
+  // setTimeout(() => {
+  //   setAlertOpen(false);
+  // }, 3000);
 
-  // const handleGetUnfinishedApps = async () => {
-  //   const res = await getUnfinishedApps(
-  //     new URLSearchParams({ applicantID: user.applicantID })
-  //   );
-  //   if (!res || res.error || res.length === 0) setAlertOpen(true);
-  //   else setListings(res);
-  // };
+  const handleGetUnfinishedApps = async () => {
+    const res = await getUnfinishedApps(
+      new URLSearchParams({ applicantID: applicantID })
+    );
+    const error = !res || res.error;
+    if (!error) setApplications(res);
+    console.log(res,'get unfinished apps');
+  };
+
+  const handleGetAllApps = async () => {
+    const res = await await getAllApps(new URLSearchParams({ sid: sid })); //ValidateUserType.sid
+    const error = !res || res.error;
+    if (!error) setApplications(res);
+    console.log(res,'get unfinished apps');
+  };
 
   return (
     <>
@@ -76,9 +94,18 @@ const ApplicantContent = () => {
         <Typography variant="h4"> Filler </Typography>
       )}
       {listings && <ListingsTable rows={listings}/>}
-
+      
       <Typography variant="h2">Applications submitted:</Typography>
+      <Button onClick={handleGetUnfinishedApps}>
+        {'Show applications with non-uploaded documents'}
+      </Button>
+      <Divider />
+      <Button onClick={handleGetAllApps}>
+        {'Show all applications'}
+      </Button>
+
       {applications && <ApplicationsTable rows={applications}/>}
+      
     </>
   );
 };

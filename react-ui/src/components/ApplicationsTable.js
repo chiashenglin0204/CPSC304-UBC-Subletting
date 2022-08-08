@@ -12,12 +12,12 @@ const ApplicationsTable = (props) => {
   const { rows } = props;
 
   return (
-    <div style={{ height: 400, width: '100%' }}>
+    <div style={{ height: 280, width: '100%' }}>
       <DataGrid
         rows={rows}
         columns={columns}
-        pageSize={5}
-        rowsPerPageOptions={[5]}
+        pageSize={3}
+        rowsPerPageOptions={[3]}
       />
     </div>
   );
