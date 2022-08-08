@@ -175,7 +175,7 @@ const ApplicantContent = () => {
       <Divider />
       <Typography variant="h2">Applications submitted:</Typography>
       <Button onClick={handleGetUnfinishedApps}>
-        {'Show applications missing all supporting documents'}
+        {'Show applications missing all/any supporting documents'}
       </Button>
       <Divider />
       <Button onClick={handleGetAllApps}>
