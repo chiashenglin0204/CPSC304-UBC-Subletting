@@ -1,8 +1,17 @@
-import { Typography } from '@mui/material';
+import ValidateUserType from '../../components/ValidateUserType';
 import React from 'react';
+import { createApplicant, getApplicant } from '../../requests/applicantRequests';
+import ApplicantContent from '../../components/ApplicantContent';
 
 const Applicant = () => {
-  return <Typography>THIS IS APPLICANT TAB</Typography>;
+  return (
+    <ValidateUserType
+      createUserType={createApplicant}
+      getUserType={getApplicant}
+      registerUserTypeButtonLabel="Become Applicant"
+      content={<ApplicantContent />}
+    />
+  );
 };
 
 export default Applicant;

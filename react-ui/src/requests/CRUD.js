@@ -9,15 +9,14 @@ export const fetchDbData = async (httpMethod, url, body) => {
     headers: {
       'Content-Type': 'application/json',
     },
-    body: body,
-  });
-  if (!response.ok) {
-    const message = `error ${response.status}: ${response}`;
-    throw new Error(message);
-  }
+  };
 
-  const jsonData = await response.json();
-  if (jsonData.error) throw new Error(jsonData.error);
-  console.log(jsonData);
-  return jsonData;
+  if (httpMethod != 'GET') requestOptions.body = body;
+  try {
+    const response = await fetch(url, requestOptions);
+    const jsonData = await response.json();
+    return jsonData;
+  } catch (e) {
+    console.log(e);
+  }
 };

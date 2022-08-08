@@ -15,7 +15,7 @@ module.exports.selectApplicationOrListingByName = async (req, res) => {
 			(req.query.isApplication === 'true' &&
 				req.query.listingid === 'undefined')
 		) {
-			return res.status(400).send('missing required parameter(s)');
+			return res.status(400).json({ error: 'missing required parameter(s)' });
 		}
 
 		var tableSelection = '';
@@ -89,5 +89,62 @@ module.exports.selectApplicationOrListingByName = async (req, res) => {
 	} catch (err) {
 		console.log(err);
 		return res.status(404).json({ error: err });
+	}
+};
+
+/**
+ * @param req.body.sid REQUIRED
+ */
+module.exports.createSubletter = async (req, res) => {
+	try {
+		if (req.body.sid === undefined)
+			return res.status(400).json({
+				error: `missing required parameter(s): sid: ${req.body.sid}`,
+			});
+		const insertSubletterRes = await connection.query(
+			`
+				INSERT INTO Subletter(sid)
+				VALUES (?);
+      		`,
+			{
+				type: connection.QueryTypes.INSERT,
+				replacements: [req.body.sid],
+			}
+		);
+
+		// insertSubletterRes[1] is the request status
+		//		1 = success
+		if (insertSubletterRes[1] === 1) {
+			return res
+				.status(200)
+				.json({ success: 'you have successfully created a subletter' });
+		}
+
+		return res.status(404).json({ error: 'db error' });
+	} catch (err) {
+		return res.status(404).json({ error: err });
+	}
+};
+
+/**
+ *
+ * @param {*} req.query.sid REQUIRED
+ */
+module.exports.getSubletterBySid = async (req, res) => {
+	const query = 'SELECT * FROM Subletter WHERE sid=?';
+	if (req.query.sid === undefined)
+		return res
+			.status(400)
+			.json({ error: 'missing required query parameter(s)' });
+
+	try {
+		const queryRes = await connection.query(query, {
+			type: connection.QueryTypes.SELECT,
+			replacements: [req.query.sid],
+		});
+		return res.json(queryRes);
+	} catch (e) {
+		console.error(e);
+		return res.status(404).json({ error: e });
 	}
 };

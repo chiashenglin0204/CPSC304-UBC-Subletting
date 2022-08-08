@@ -1,6 +1,9 @@
 # API Routes
 User Routes
 - `GET` - `/users` - get all users
+- `GET` - `/users/byIdPhoneNum` - get user identified uniquely by sid and phone#
+    * query.sid REQUIRED
+    * query.phoneNumer REQUIRED
 - `POST` - `/users/createUser` - create user
     * body.sid REQUIRED
     * body.userName REQUIRED
@@ -10,10 +13,20 @@ User Routes
     * body.sid REQUIRED 
 
 Subletter Routes
+- `GET` - `/subletter/getBySid`
+    * query.sid REQUIRED 
 - `GET` - `/subletter/selectApplicationOrListingByName` - select attribute of users from application OR listing based on userName specified (only subletter could do this)
     * body.isApplication REQUIRED 
     * body.selectedName REQUIRED  
     * body.listingid REQUIRED WHEN req.body.isApplication is TRUE
+- `POST` - `/subletter/createSubletter`
+    * body.sid REQUIRED 
+
+Applicant Routes
+- `GET` - `/applicant/getBySid`
+    * query.sid REQUIRED 
+- `POST` - `/applicant/createApplicant`
+    * body.sid REQUIRED 
 
 Application Routes
 - `GET` - `/application/getApplicationBySid` - get application by sid (only applicant could do this)
@@ -40,6 +53,7 @@ Listing Routes
 - `GET` - `/listing/countForRoomTypes` - get # listings for each room type
 - `GET` - `/listing/minPriceListingByRoomType` - get the cheapest available listing by roomType
     * body.roomType REQUIRED
+- `GET` - `/listing/getAll` - get all listings
         
 
 
