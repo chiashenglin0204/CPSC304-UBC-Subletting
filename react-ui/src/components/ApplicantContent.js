@@ -134,9 +134,7 @@ const ApplicantContent = () => {
         <Typography variant="h4"> Filler </Typography>
       )}
 
-
-<Divider />
-      <Typography variant="h4">Cheapest listing finder</Typography>
+      <Divider />
       <TextField
         id="gender-input"
         name="gender"
@@ -145,23 +143,17 @@ const ApplicantContent = () => {
         value={gender}
         onChange={(event) => setGender(event.target.value)}
       />
-      <Button onClick={handleFindListingsByGender}>
-        {'Apply gender filter'}
-      </Button>
+      <Button onClick={handleFindListingsByGender}>{'Apply gender filter'}</Button>
       <Button onClick={handleClearGenderFilter}>{'Clear filter'}</Button>
       <Collapse in={alertOpen}>
         <Alert
           severity="error"
           action={
-            <IconButton
-              aria-label="close"
-              color="inherit"
-              size="small"
-              onClick={() => {
-                setAlertOpen(false);
-              }}
-            >
-              <CloseIcon fontSize="inherit" />
+            <IconButton aria-label="close" 
+                        color="inherit"
+                        size="small"
+                        onClick={() => {setAlertOpen(false);}}>
+            <CloseIcon fontSize="inherit" />
             </IconButton>
           }
           sx={{ mb: 2 }}
@@ -172,7 +164,9 @@ const ApplicantContent = () => {
 
       {listings && <ListingsTable rows={listings}/>}
 
+      <Divider />
 
+      <Typography variant="h3">Popular Listings</Typography>
       <Button onClick={handleGetPopularListings}>
         {'Show popular listings'}
       </Button>      
@@ -182,7 +176,6 @@ const ApplicantContent = () => {
       {popListings && <PopListingsTable rows={popListings}/>}
       
       <Divider />
-
       <Typography variant="h2">Applications submitted:</Typography>
       <Button onClick={handleGetUnfinishedApps}>
         {'Show applications missing all supporting documents'}
