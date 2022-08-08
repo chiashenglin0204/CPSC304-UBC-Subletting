@@ -56,6 +56,7 @@ const ApplicantContent = () => {
     const res = await getAllListings();
     const error = !res || res.error;
     if (!error) setListings(res);
+    setRoomType('');
   };
 
   return (
