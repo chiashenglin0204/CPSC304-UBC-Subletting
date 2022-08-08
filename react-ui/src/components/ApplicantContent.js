@@ -2,6 +2,7 @@ import {
   Alert,
   Button,
   Collapse,
+  Divider,
   IconButton,
   TextField,
   Typography,
@@ -64,14 +65,15 @@ const ApplicantContent = () => {
       <Typography variant="h2">Listings:</Typography>
       {listingCountsByRoomType ? (
         listingCountsByRoomType.map((countByRoomType) => (
-          <Typography variant="h4" key={countByRoomType.roomtype}>
+          <Typography variant="body1" key={countByRoomType.roomtype}>
             {`Room Type ${countByRoomType.roomtype} has ${countByRoomType.numlistings} listings`}
           </Typography>
         ))
       ) : (
         <Typography variant="h4"> Filler </Typography>
       )}
-      <Typography variant="h3">Cheapest listing finder</Typography>
+      <Divider />
+      <Typography variant="h4">Cheapest listing finder</Typography>
       <TextField
         id="roomType-input"
         name="roomType"
