@@ -28,7 +28,7 @@ Applicant Routes
 - `POST` - `/applicant/createApplicant`
     * body.sid REQUIRED 
 - `GET` - `/applicant/unfinishedApps` - find applications for which the applicant has yet to have included all of their supporting documents for
-    * body.applicantID REQUIRED
+    * query.applicantID REQUIRED
 
 Application Routes
 - `GET` - `/application/getApplicationBySid` - get application by sid (only applicant could do this)
@@ -58,7 +58,7 @@ Listing Routes
 - `GET` - `/listing/getAll` - get all listings
 - `GET` - `/listing/popularListings` - show all popular listing and their number of respective applications (from most to least popular)
 - `GET` - `/listing/listingByGender` - display listings based on userinput for gender (F/M)
-    * body.gender REQUIRED
+    * query.gender REQUIRED
 
 ## GET STARTED
 run `npm install` in the root directory of the server
