@@ -4,11 +4,26 @@ import {
   getAllListings,
   getListingCountForRoomTypes,
 } from '../requests/listingRequests';
+import {
+  getAllApps,
+  // getUnfinishedApps
+} from '../requests/applicantRequests';
 import ListingsTable from './ListingsTable';
+import ApplicationsTable from './ApplicationsTable';
+// import ValidateUserType from './ValidateUserType';
+// import { useUserContext } from './UserContext';
+// const { user, setUser } = useUserContext();
+
 
 const ApplicantContent = () => {
   const [listingCountsByRoomType, setListingCountsByRoomType] = useState(null);
   const [listings, setListings] = useState(null);
+  const [applications, setApplications] = useState(null);
+
+  /**
+   * i need help extracting the student id from the validated user info
+   */
+  const sid = 99999999;
 
   useEffect(() => {
     const fetchListingCounts = async () => {
@@ -27,7 +42,26 @@ const ApplicantContent = () => {
 
     fetchListingCounts().catch((err) => console.log(err));
     fetchListings().catch((err) => console.log(err));
+
+    const fetchApplications = async () => {
+      const res = await getAllApps(new URLSearchParams({ sid: sid })); //ValidateUserType.sid
+      const error = !res || res.error;
+      if (!error) setApplications(res);
+      console.log(res);
+    }
+
+    fetchApplications().catch((err) => console.log(err));
+
   }, []);
+
+
+  // const handleGetUnfinishedApps = async () => {
+  //   const res = await getUnfinishedApps(
+  //     new URLSearchParams({ applicantID: user.applicantID })
+  //   );
+  //   if (!res || res.error || res.length === 0) setAlertOpen(true);
+  //   else setListings(res);
+  // };
 
   return (
     <>
@@ -42,6 +76,9 @@ const ApplicantContent = () => {
         <Typography variant="h4"> Filler </Typography>
       )}
       {listings && <ListingsTable rows={listings}/>}
+
+      <Typography variant="h2">Applications submitted:</Typography>
+      {applications && <ApplicationsTable rows={applications}/>}
     </>
   );
 };

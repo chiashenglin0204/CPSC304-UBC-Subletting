@@ -78,23 +78,25 @@ module.exports.deleteApplicationById = async (req, res) => {
 
 /**
  *
- * @param req.body.sid REQUIRED
+ * @param req.query.sid REQUIRED
  */
 module.exports.getApplicationBySid = async (req, res) => {
-  if (req.body.sid === undefined) {
+  if (req.query.sid === undefined) {
     //console.log(req.query);
     return res.status(400).json({ error: 'missing required parameter(s)' });
   }
 
-  const query = 'SELECT * FROM "application" WHERE "sid" = ?';
+  const query = `
+    SELECT applicationID as id, listingID, introduction
+    FROM "application" 
+    WHERE "sid" = ?`;
   console.log(query);
 
   try {
-    const queryRes = await connection.query(
-      'SELECT * FROM "application" WHERE "sid" = ?',
+    const queryRes = await connection.query(query,
       {
         type: connection.QueryTypes.SELECT,
-        replacements: [req.body.sid],
+        replacements: [req.query.sid],
       }
     );
     return res.status(200).json(queryRes);
