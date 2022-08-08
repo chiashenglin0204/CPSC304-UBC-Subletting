@@ -107,7 +107,7 @@ module.exports.getAllListings = async (req, res) => {
  * @param req.query.gender REQUIRED
  */
 module.exports.getListingByGender = async (req, res) => {
-  if (req.query.gender == null) 
+  if (req.query.gender === undefined) 
     return res.status(400).json({ error: 'missing required params' });
 
   const query = `

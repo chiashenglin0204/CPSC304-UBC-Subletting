@@ -16,6 +16,6 @@ router.get('/popularListings', getPopularListings);
 
 router.get('/getAll', getAllListings);
 
-router.get('/listingByGender', getListingByGender)
+router.get('/genderFilter', getListingByGender)
 
 module.exports = router;

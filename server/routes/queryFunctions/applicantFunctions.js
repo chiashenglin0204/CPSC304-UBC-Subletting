@@ -4,7 +4,7 @@ const connection = require('../../database/sequelize.js');
  * @param req.query.applicantID REQUIRED
  */
 module.exports.getUnfinishedApps = async (req, res) => {
-  if (req.query.applicantID == null)
+  if (req.query.applicantID === undefined)
     return res.status(400).json({ error: 'missing applicant ID' });
 
   try {
