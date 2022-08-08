@@ -46,16 +46,16 @@ module.exports.getMinPriceListingsByRoomType = async (req, res) => {
       GROUP BY l2.roomType
     ) AS minRates
       ON l.roomType=minRates.roomtype AND l.rate=minRates.min
-    WHERE l.roomType='${req.query.roomType}';`,
+    WHERE l.roomType=?;`,
     `DROP VIEW ListingWithRoom;`,
   ].join(' ');
 
   try {
     const queryRes = await connection.query(query, {
       type: connection.QueryTypes.SELECT,
+      replacements: [req.query.roomType]
     });
-
-    return res.json(queryRes);
+    return res.status(200).json(queryRes);
   } catch (e) {
     console.error(e);
     return res.status(404).json({ error: e });
