@@ -23,8 +23,7 @@ import ListingsTable from './ListingsTable';
 import ApplicationsTable from './ApplicationsTable';
 import PopListingsTable from './PopListingsTable';
 // import ValidateUserType from './ValidateUserType';
-// import { useUserContext } from './UserContext';
-// const { user, setUser } = useUserContext();
+import { useUserContext } from './UserContext';
 import CloseIcon from '@mui/icons-material/Close';
 
 
@@ -36,11 +35,11 @@ const ApplicantContent = () => {
   const [gender, setGender] = useState('');
   const [alertOpen, setAlertOpen] = useState(false);
 
-  /**
-   * i need help extracting the student id from the validated user info
-   */
-  const sid = 99999999;
-  const applicantID = 1;
+  /* eslint-disable no-unused-vars */
+  const { user, setUser } = useUserContext();
+  /* eslint-enable no-unused-vars */
+  const sid = user.sid;//99999999;
+  const applicantID = user.applicantid;//1;
 
   useEffect(() => {
     const fetchListingCounts = async () => {
@@ -61,7 +60,7 @@ const ApplicantContent = () => {
     fetchListings().catch((err) => console.log(err));
 
     const fetchApplications = async () => {
-      const res = await getAllApps(new URLSearchParams({ sid: sid })); //ValidateUserType.sid
+      const res = await getAllApps(new URLSearchParams({ sid: sid }));
       const error = !res || res.error;
       if (error) console.log(error);
       else setApplications(res);
@@ -77,16 +76,14 @@ const ApplicantContent = () => {
   }, 3000);
 
   const handleGetUnfinishedApps = async () => {
-    const res = await getUnfinishedApps(
-      new URLSearchParams({ applicantID: applicantID })   //ValidateUserType.applicantID
-    );
+    const res = await getUnfinishedApps(new URLSearchParams({ applicantID: applicantID }));
     const error = !res || res.error;
     if (!error) setApplications(res);
     console.log(res,'get unfinished apps');
   };
 
   const handleGetAllApps = async () => {
-    const res = await getAllApps(new URLSearchParams({ sid: sid })); //ValidateUserType.sid
+    const res = await getAllApps(new URLSearchParams({ sid: sid }));
     const error = !res || res.error;
     if (!error) setApplications(res);
     console.log(res,'get all apps');
