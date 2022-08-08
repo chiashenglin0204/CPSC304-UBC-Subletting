@@ -15,8 +15,4 @@ export const selectApplicationOrListingByName = searchParams => {
 		'http://localhost:3001/subletter/selectApplicationOrListingByName?' +
 			new URLSearchParams(searchParams)
 	);
-};	// fetchDbData(
-	// 	'GET',
-	// 	'http://localhost:3001/subletter/selectApplicationOrListingByName',
-	// 	body
-	// );
+};	

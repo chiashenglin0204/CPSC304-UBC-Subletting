@@ -11,7 +11,7 @@ import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { selectApplicationOrListingByName } from '../../requests/subletterSelectionRequest';
 
 const SubletterSelection = () => {
@@ -30,14 +30,7 @@ const SubletterSelection = () => {
 
 	const handleSubmit = async event => {
 		event.preventDefault();
-		console.log(formValues);
-
-		console.log('form value: ' + formValues);
-		var res = await selectApplicationOrListingByName(formValues);
-		console.log(new URLSearchParams(formValues));
-		console.log(JSON.stringify(formValues));
-		/** TODO: error handling */
-		console.log(res);
+		selectApplicationOrListingByName(formValues);
 	};
 
 	const handleInputChange1 = e => {
@@ -180,7 +173,6 @@ const SubletterSelection = () => {
 				<Button
 					variant="contained "
 					onClick={e => {
-						console.log('here');
 						handleSubmit(e);
 					}}
 				>
@@ -194,5 +186,3 @@ const SubletterSelection = () => {
 };
 
 export default SubletterSelection;
-
-

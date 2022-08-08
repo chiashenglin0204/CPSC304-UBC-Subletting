@@ -10,16 +10,17 @@ var connection = require('../../database/sequelize.js');
 module.exports.selectApplicationOrListingByName = async (req, res) => {
 	try {
 		if (
-			req.query.isApplication === undefined ||
-			req.query.selectedName === undefined ||
-			(req.query.isApplication == true && req.query.listingid == undefined)
+			req.query.isApplication === 'undefined' ||
+			req.query.selectedName === 'undefined' ||
+			(req.query.isApplication === 'true' &&
+				req.query.listingid === 'undefined')
 		) {
 			return res.status(400).send('missing required parameter(s)');
 		}
 
 		var tableSelection = '';
 		var a = '';
-		if (req.query.isApplication == true) {
+		if (req.query.isApplication === 'true') {
 			a = 'AND ' + `"listingid"` + ' =' + `${req.query.listingid}`;
 			tableSelection = `"application"`;
 		} else {
@@ -34,24 +35,24 @@ module.exports.selectApplicationOrListingByName = async (req, res) => {
 		var attributes = [];
 
 		if (req.query.needSid === 'true') {
-			attributes.push("sid");
-		} 
+			attributes.push('sid');
+		}
 
 		if (req.query.needPhoneNum === 'true') {
 			attributes.push('phone#');
-		} 
+		}
 
 		if (req.query.needName === 'true') {
 			attributes.push('name');
-		} 
+		}
 
 		if (req.query.needGender === 'true') {
 			attributes.push('gender');
-		} 
+		}
 
 		if (req.query.needEmail === 'true') {
 			attributes.push('email');
-		} 
+		}
 
 		console.log(req.query.needSid);
 		console.log(req.query.needSid === 'true');
