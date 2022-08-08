@@ -64,12 +64,13 @@ module.exports.getMinPriceListingsByRoomType = async (req, res) => {
  */
 module.exports.getPopularListings = async (req, res) => {
   const query = `
-    SELECT      listingID, count(*)
-    FROM        Application
-    GROUP BY    listingID
+    SELECT      a.listingID as id, count(a.*) as numApps
+    FROM        Application a, listing l
+    WHERE       a.listingID = l.listingID
+    GROUP BY    a.listingID
     HAVING      count(*) > 1
     ORDER BY    count(*);
-    `;
+  `;
   try {
     const queryRes = await connection.query(query, {
       type: connection.QueryTypes.SELECT,

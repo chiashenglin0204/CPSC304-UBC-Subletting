@@ -8,6 +8,7 @@ import React, { useEffect, useState } from 'react';
 import {
   getAllListings,
   getListingCountForRoomTypes,
+  getPopularListings,
 } from '../requests/listingRequests';
 import {
   getAllApps,
@@ -15,6 +16,7 @@ import {
 } from '../requests/applicantRequests';
 import ListingsTable from './ListingsTable';
 import ApplicationsTable from './ApplicationsTable';
+import PopListingsTable from './PopListingsTable';
 // import ValidateUserType from './ValidateUserType';
 // import { useUserContext } from './UserContext';
 // const { user, setUser } = useUserContext();
@@ -23,6 +25,7 @@ import ApplicationsTable from './ApplicationsTable';
 const ApplicantContent = () => {
   const [listingCountsByRoomType, setListingCountsByRoomType] = useState(null);
   const [listings, setListings] = useState(null);
+  const [popListings, setPopListings] = useState(null);
   const [applications, setApplications] = useState(null);
 
   /**
@@ -59,6 +62,17 @@ const ApplicantContent = () => {
 
     fetchApplications().catch((err) => console.log(err));
 
+    // const fetchPopListings = async () => {
+    //   const res = await getPopularListings();
+    //   const error = !res || res.error;
+    //   if (error) console.log(error);
+    //   else setPopListings(res);
+    //   console.log(res);
+    //   // setPopListings(false);
+    // }
+    
+    // fetchPopListings().catch((err) => console.log(err));
+
   }, []);
 
   // setTimeout(() => {
@@ -67,7 +81,7 @@ const ApplicantContent = () => {
 
   const handleGetUnfinishedApps = async () => {
     const res = await getUnfinishedApps(
-      new URLSearchParams({ applicantID: applicantID })
+      new URLSearchParams({ applicantID: applicantID })   //ValidateUserType.applicantID
     );
     const error = !res || res.error;
     if (!error) setApplications(res);
@@ -75,10 +89,22 @@ const ApplicantContent = () => {
   };
 
   const handleGetAllApps = async () => {
-    const res = await await getAllApps(new URLSearchParams({ sid: sid })); //ValidateUserType.sid
+    const res = await getAllApps(new URLSearchParams({ sid: sid })); //ValidateUserType.sid
     const error = !res || res.error;
     if (!error) setApplications(res);
-    console.log(res,'get unfinished apps');
+    console.log(res,'get all apps');
+  };
+
+  const handleGetPopularListings = async () => {
+    const res = await getPopularListings();
+    const error = !res || res.error;
+    if (!error) setPopListings(res);
+    console.log(res,'get popular listings');
+  };
+
+  const handleHidePopularListings = async () => {
+    setPopListings(null);
+    console.log('hide popular listings');
   };
 
   return (
@@ -94,10 +120,21 @@ const ApplicantContent = () => {
         <Typography variant="h4"> Filler </Typography>
       )}
       {listings && <ListingsTable rows={listings}/>}
+
+
+      <Button onClick={handleGetPopularListings}>
+        {'Show popular listings'}
+      </Button>      
+      <Button onClick={handleHidePopularListings}>
+        {'Hide popular listings'}
+      </Button>
+      {popListings && <PopListingsTable rows={popListings}/>}
       
+      <Divider />
+
       <Typography variant="h2">Applications submitted:</Typography>
       <Button onClick={handleGetUnfinishedApps}>
-        {'Show applications with non-uploaded documents'}
+        {'Show applications missing all supporting documents'}
       </Button>
       <Divider />
       <Button onClick={handleGetAllApps}>
