@@ -1,21 +1,24 @@
-const { Sequelize } = require('sequelize')
+const { Sequelize } = require('sequelize');
 
 const sequelize = new Sequelize(
-  process.env.DB_NAME || "postgres",
-  process.env.DB_USER || "postgres",
-  process.env.DB_PASSWORD || "postgres",
+  process.env.DB_NAME || 'postgres',
+  process.env.DB_USER || 'postgres',
+  process.env.DB_PASSWORD || 'postgres',
   {
-    host: process.env.DB_HOST || "localhost",
+    host: process.env.DB_HOST || 'localhost',
     port: parseInt(process.env.DB_PORT) || 5432,
-    dialect: "postgres",
+    dialect: 'postgres',
+    dialectOptions: {
+      multipleStatements: true,
+    },
     pool: {
       max: 10,
       min: 0,
-      idle: 30000
+      idle: 30000,
     },
     define: {
-      timestamps: false
-    }
+      timestamps: false,
+    },
   }
 );
 
@@ -26,5 +29,3 @@ const sequelize = new Sequelize(
 // )
 
 module.exports = sequelize;
-
-
