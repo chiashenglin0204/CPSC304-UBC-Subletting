@@ -9,23 +9,23 @@ module.exports.getUnfinishedApps = async (req, res) => {
 
   try {
     const query = `
-            SELECT  a.applicationID
-            FROM    Application a
-            WHERE   a.applicantID = ?
-            EXCEPT (
-                SELECT  p1.applicationID
-                FROM    partOf p1
-                WHERE NOT EXISTS (
-                    (SELECT S.documentID
-                    FROM   Supporting_Document123 S
-                    WHERE  S.applicantID = ?)
-                    EXCEPT
-                    (SELECT  p2.documentID
-                    FROM     partOf p2
-                    WHERE    p1.applicationID = p2.applicationID)
-                )
-            );
-        `;
+      SELECT  a1.applicationID as id, a1.listingID, a1.introduction
+      FROM    Application a1
+      WHERE   a1.applicantID = ?
+      EXCEPT (
+          SELECT  DISTINCT p1.applicationID as id, a2.listingID, a2.introduction
+          FROM    partOf p1, application a2
+          WHERE NOT EXISTS (
+              (SELECT S.documentID
+              FROM   Supporting_Document123 S
+              WHERE  S.applicantID = ?)
+              EXCEPT
+              (SELECT  p2.documentID
+              FROM     partOf p2
+              WHERE    p1.applicationID = p2.applicationID )
+          )
+      );
+    `;
     const queryRes = await connection.query(query, {
       type: connection.QueryTypes.SELECT,
       replacements: [req.query.applicantID, req.query.applicantID],

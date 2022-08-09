@@ -91,7 +91,9 @@ INSERT INTO Application (applicationID, listingID, applicantID, sid, introductio
   (2,5,1,99999999,'Hey, it''s Bruno Mars'),
   (3,3,1,99999999,'Get ME paying your rent!'),
   (4,4,1,99999999,'24K magic in the air baby.'),
-  (5,1,3,77777777,'I''m interested, please call me!');
+  (5,1,3,77777777,'I''m interested, please call me!'),
+  (6,1,2,66666666,'Hi my name is Whitney Houston.'),
+  (7,3,4,88888888,'If you wanna run away with me I know a galaxy and I could take you for a ride');
 
 INSERT INTO partOf (applicationID, documentID) VALUES
   (1,4),
