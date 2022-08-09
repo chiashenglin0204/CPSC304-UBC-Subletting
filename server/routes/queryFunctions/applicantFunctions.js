@@ -1,10 +1,10 @@
 const connection = require('../../database/sequelize.js');
 
 /**
- * @param req.body.applicantID REQUIRED
+ * @param req.query.applicantID REQUIRED
  */
 module.exports.getUnfinishedApps = async (req, res) => {
-  if (req.body.applicantID == null)
+  if (req.query.applicantID === undefined)
     return res.status(400).json({ error: 'missing applicant ID' });
 
   try {
@@ -28,7 +28,7 @@ module.exports.getUnfinishedApps = async (req, res) => {
         `;
     const queryRes = await connection.query(query, {
       type: connection.QueryTypes.SELECT,
-      replacements: [req.body.applicantID, req.body.applicantID],
+      replacements: [req.query.applicantID, req.query.applicantID],
     });
     return res.json(queryRes);
   } catch (e) {

@@ -25,3 +25,10 @@ export const getCheapestAvailableListingByRoomType = (searchParams) =>
     'GET',
     'http://localhost:3001/listing/minPriceListingByRoomType/?' + searchParams
   );
+
+  /**
+ * @returns {Object} json object with array of
+ *  {id, status, rate, startdate, roomType}
+ */
+export const getAllReducedListings = () =>
+fetchDbData('GET', 'http://localhost:3001/listing/getAllReduced');

@@ -11,6 +11,7 @@ import React, { useEffect, useState } from 'react';
 import {
   getAllListings,
   getCheapestAvailableListingByRoomType,
+  getAllReducedListings,
   getListingCountForRoomTypes,
 } from '../requests/listingRequests';
 import ListingsTable from './ListingsTable';
@@ -21,6 +22,7 @@ const ApplicantContent = () => {
   const [listings, setListings] = useState(null);
   const [roomType, setRoomType] = useState('');
   const [alertOpen, setAlertOpen] = useState(false);
+  const [reducedView, setReducedView] = useState(false);
 
   useEffect(() => {
     const fetchListingCounts = async () => {
@@ -53,10 +55,23 @@ const ApplicantContent = () => {
     else setListings(res);
   };
 
+  const fetchReducedListings = async () => {
+    const res = await getAllReducedListings();
+    const error = !res || res.error;
+    if (!error) {
+      setListings(res);
+      setReducedView(true);
+    }
+    console.log(res);
+  };
+
   const handleClearFilter = async () => {
     const res = await getAllListings();
     const error = !res || res.error;
-    if (!error) setListings(res);
+    if (!error) {
+      setListings(res);
+      setReducedView(false);
+    }
     setRoomType('');
   };
 
@@ -106,7 +121,8 @@ const ApplicantContent = () => {
           No listing found
         </Alert>
       </Collapse>
-      {listings && <ListingsTable rows={listings} />}
+      <Button onClick={fetchReducedListings}>Reduced View</Button>
+      {listings && <ListingsTable rows={listings} reducedView={reducedView} />}
     </>
   );
 };

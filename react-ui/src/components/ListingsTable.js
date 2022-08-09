@@ -6,13 +6,6 @@ const dateGetter = ({ value }) => value && new Date(value);
 
 const columns = [
   { field: 'id', headerName: 'ID', width: 70 },
-  {
-    field: 'datelisted',
-    headerName: 'Date Listed',
-    width: 100,
-    type: 'date',
-    valueGetter: dateGetter,
-  },
   { field: 'status', headerName: 'Status', width: 100 },
   { field: 'rate', headerName: 'Monthly Rate', width: 100, type: 'number' },
   {
@@ -45,6 +38,24 @@ const columns = [
   },
 ];
 
+const reducedCols = [
+  { field: 'id', headerName: 'ID', width: 70 },
+  { field: 'status', headerName: 'Status', width: 100 },
+  { field: 'rate', headerName: 'Monthly Rate', width: 100, type: 'number' },
+  {
+    field: 'startdate',
+    headerName: 'Start Date',
+    width: 100,
+    type: 'date',
+    valueGetter: dateGetter,
+  },
+  {
+    field: 'roomtype',
+    headerName: 'Type',
+    width: 100,
+  },
+];
+
 // const columns = [
 //   {
 //     field: 'fullName',
@@ -58,22 +69,24 @@ const columns = [
 // ];
 
 const ListingsTable = (props) => {
-  const { rows } = props;
+  const { rows, reducedView } = props;
 
+  console.log(reducedView);
   return (
     <div style={{ height: 400, width: '100%' }}>
-      <DataGrid
+      {rows && <DataGrid
         rows={rows}
-        columns={columns}
+        columns={reducedView ? reducedCols : columns}
         pageSize={5}
         rowsPerPageOptions={[5]}
-      />
+      />}
     </div>
   );
 };
 
 ListingsTable.propTypes = {
   rows: PropTypes.array.isRequired,
+  reducedView: PropTypes.bool.isRequired,
 };
 
 export default ListingsTable;
