@@ -49,7 +49,11 @@ const reducedCols = [
     type: 'date',
     valueGetter: dateGetter,
   },
-  { field: 'gender', headerName: 'Gender', width: 100 },
+  {
+    field: 'roomtype',
+    headerName: 'Type',
+    width: 100,
+  },
 ];
 
 // const columns = [

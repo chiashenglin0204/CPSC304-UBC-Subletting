@@ -13,9 +13,22 @@ export const getListingCountForRoomTypes = () =>
 export const getAllListings = () =>
   fetchDbData('GET', 'http://localhost:3001/listing/getAll');
 
+/**
+ *
+ * @param {string} searchParams URL search params created from new URLSearchParams({ sid: 0, phoneNum: '0' })
+ *                              roomType REQUIRED
+ * @returns {Object} json object with array of listing or error
+ *  []{id, datelisted, status, rate, startdate, enddate, roomtype, gender, haskitchen, numRooms, numBathrooms}
+ */
+export const getCheapestAvailableListingByRoomType = (searchParams) =>
+  fetchDbData(
+    'GET',
+    'http://localhost:3001/listing/minPriceListingByRoomType/?' + searchParams
+  );
+
   /**
  * @returns {Object} json object with array of
- *  {id, status, rate, startdate, gender}
+ *  {id, status, rate, startdate, roomType}
  */
 export const getAllReducedListings = () =>
 fetchDbData('GET', 'http://localhost:3001/listing/getAllReduced');

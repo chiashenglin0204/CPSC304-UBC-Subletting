@@ -24,35 +24,38 @@ module.exports.getListingCountForRoomTypes = async (req, res) => {
 };
 
 /**
- * @param req.body.roomType REQUIRED
+ * @param req.query.roomType REQUIRED
  */
 module.exports.getMinPriceListingsByRoomType = async (req, res) => {
-  if (req.body.roomType === null)
+  if (req.query.roomType === undefined)
     return res.status(400).json({ error: 'missing required params' });
 
+  const query = [
+    `CREATE VIEW ListingWithRoom AS 
+    SELECT l.listingid AS id, l.datelisted, l.status, l.rate, l.startdate, l.enddate, r12.roomtype, r12.gender, r34.haskitchen, r34.numRooms, r5.numBathrooms
+    FROM listing l
+    NATURAL JOIN room_in12 r12
+    NATURAL JOIN room_in34 r34
+    NATURAL JOIN room_in5 r5;`,
+    `SELECT *
+    FROM ListingWithRoom l
+    INNER JOIN (
+      SELECT l2.roomType, MIN(l2.rate)
+      FROM ListingWithRoom l2
+      WHERE l2.status='AVAILABLE'
+      GROUP BY l2.roomType
+    ) AS minRates
+      ON l.roomType=minRates.roomtype AND l.rate=minRates.min
+    WHERE l.roomType=?;`,
+    `DROP VIEW ListingWithRoom;`,
+  ].join(' ');
+
   try {
-    const query = `
-            SELECT *
-            FROM listing l
-            INNER JOIN room_in12 AS r
-                ON l.resID=r.resID AND l."room#"=r."room#"
-            INNER JOIN (
-                SELECT r.roomType, MIN(l.rate)
-                FROM listing l
-                INNER JOIN room_in12 AS r
-                    ON l.resID=r.resID AND l."room#"=r."room#"
-                WHERE l.status='AVAILABLE'
-                GROUP BY r.roomType
-            ) AS minRates
-                ON r.roomType=minRates.roomtype AND l.rate=minRates.min
-            WHERE r.roomType=?;
-        `;
     const queryRes = await connection.query(query, {
       type: connection.QueryTypes.SELECT,
-      replacements: [req.body.roomType],
+      replacements: [req.query.roomType]
     });
-
-    return res.json(queryRes);
+    return res.status(200).json(queryRes);
   } catch (e) {
     console.error(e);
     return res.status(404).json({ error: e });
@@ -108,7 +111,7 @@ module.exports.getAllListings = async (req, res) => {
  */
  module.exports.getAllListingsReduced = async (req, res) => {
   const query = `
-      SELECT l.listingid AS id, l.status, l.rate, l.startdate, r12.gender
+      SELECT l.listingid AS id, l.status, l.rate, l.startdate, r12.roomtype
       FROM listing l
       NATURAL JOIN room_in12 r12;
     `;
