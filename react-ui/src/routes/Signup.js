@@ -14,7 +14,7 @@ import { createUser } from '../requests/userRequests';
 import './Signup.css';
 
 const defaultValues = {
-  sid: '',
+  sid: -1,
   phoneNum: '',
   userName: '',
   gender: '',
@@ -25,7 +25,8 @@ const Signup = () => {
   const [formValues, setFormValues] = useState(defaultValues);
 
   const handleInputChange = (e) => {
-    const { name, value } = e.target;
+    let { name, value } = e.target;
+  
     setFormValues({
       ...formValues,
       [name]: value,
@@ -50,7 +51,7 @@ const Signup = () => {
             id="sid-input"
             name="sid"
             label="Student ID"
-            type="text"
+            type="number"
             value={formValues.sid}
             onChange={handleInputChange}
           />
