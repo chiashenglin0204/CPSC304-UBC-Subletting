@@ -4,8 +4,22 @@
 ## ER Diagram
 ![ER Diagram](/Assets/ER_diagram.png)
 
-## FE Workflow Brainstorm
-[Miro Board](https://miro.com/app/board/uXjVOi0cFyc=/?share_link_id=80064679319)
+## Additional Information
+[Miro Board for User Workflow Brainstorming](https://miro.com/app/board/uXjVOi0cFyc=/?share_link_id=80064679319)
+
+[Development Timeline](https://docs.google.com/document/d/1ZinlnnpGPXqVrynhi7kIM-f25zKBQPpT66qy30IJ35U/edit?usp=sharing)
+
+## Project Description
+UBC Subletting is a web app created as a hub for UBC students on residence to sublet and/or apply for rooms. With our application, there is no longer the need to join several facebook groups or scroll down endless craigslist listings. 
+
+The database of our application was setup using postgreSQL Additionally, we used NodeJS and React to create a backend api and front end UI for our application.
+
+UBC Subletting allows a User to create an account using their student ID and contact information to take a look at the features of the app. When the user is ready, they can choose to become a Subletter and/or an Applicant. 
+
+A subletter will have access to all listings and all the applications made towards their own listing (but not for other subletter listings). They may additionally schedule a viewing with certain applicants. 
+
+As an Applicant, the user is able to see all listings, filter listings based on various parameters based on the user’s personal interest, and view a full or condensed view of all applications. Additionally, applicants have the ability to view various aggregated information about listings such as popular listings, the number of listings based on the types of rooms. Finally, the applicant is also able to view incomplete applications if they haven’t included all or any of their supporting documents.
+
 
 ## Queries
 
