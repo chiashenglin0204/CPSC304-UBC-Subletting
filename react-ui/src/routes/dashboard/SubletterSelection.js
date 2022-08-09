@@ -11,7 +11,7 @@ import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 
-import React, { useState } from 'react';
+import React, { useState} from 'react';
 import { selectApplicationOrListingByName } from '../../requests/subletterSelectionRequest';
 
 const SubletterSelection = () => {
@@ -27,10 +27,11 @@ const SubletterSelection = () => {
 	};
 
 	const [formValues, setFormValues] = useState(defaultValues);
-
+	const [aa, setaa] = useState('');
 	const handleSubmit = async event => {
 		event.preventDefault();
-		selectApplicationOrListingByName(formValues);
+		let c = await selectApplicationOrListingByName(formValues);
+		setaa(c);
 	};
 
 	const handleInputChange1 = e => {
@@ -179,7 +180,7 @@ const SubletterSelection = () => {
 					{' '}
 					Submit
 				</Button>
-				<div></div>
+				<div>{aa === '' ? <div></div> : <div>{JSON.stringify(aa)}</div>}</div>
 			</form>
 		</div>
 	);
