@@ -15,7 +15,6 @@ export const fetchDbData = async (httpMethod, url, body) => {
 	try {
 		const response = await fetch(url, requestOptions);
 		const jsonData = await response.json();
-		console.log(jsonData);
 		return jsonData;
 	} catch (e) {
 		console.log(e);
