@@ -56,6 +56,7 @@ Listing Routes
 - `GET` - `/listing/minPriceListingByRoomType` - get the cheapest available listing by roomType
     * body.roomType REQUIRED
 - `GET` - `/listing/getAll` - get all listings
+- `GET` - `/listing/getAllReduced` - get all listings with less columns
 - `GET` - `/listing/popularListings` - show all popular listing and their number of respective applications (from most to least popular)
 - `GET` - `/listing/listingByGender` - display listings based on userinput for gender (F/M)
     * query.gender REQUIRED

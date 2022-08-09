@@ -104,6 +104,26 @@ module.exports.getAllListings = async (req, res) => {
 };
 
 /**
+ * No param REQUIRED
+ */
+ module.exports.getAllListingsReduced = async (req, res) => {
+  const query = `
+      SELECT l.listingid AS id, l.status, l.rate, l.startdate, r12.gender
+      FROM listing l
+      NATURAL JOIN room_in12 r12;
+    `;
+  try {
+    const queryRes = await connection.query(query, {
+      type: connection.QueryTypes.SELECT,
+    });
+    return res.json(queryRes);
+  } catch (e) {
+    console.error(e);
+    return res.status(404).json({ error: e });
+  }
+};
+
+/**
  * @param req.query.gender REQUIRED
  */
 module.exports.getListingByGender = async (req, res) => {

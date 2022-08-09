@@ -12,3 +12,10 @@ export const getListingCountForRoomTypes = () =>
  */
 export const getAllListings = () =>
   fetchDbData('GET', 'http://localhost:3001/listing/getAll');
+
+  /**
+ * @returns {Object} json object with array of
+ *  {id, status, rate, startdate, gender}
+ */
+export const getAllReducedListings = () =>
+fetchDbData('GET', 'http://localhost:3001/listing/getAllReduced');
