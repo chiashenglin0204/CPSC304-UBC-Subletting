@@ -73,12 +73,12 @@ const ListingsTable = (props) => {
 
   console.log(reducedView);
   return (
-    <div style={{ height: 400, width: '100%' }}>
+    <div style={{ height: 450, width: '100%' }}>
       {rows && <DataGrid
         rows={rows}
         columns={reducedView ? reducedCols : columns}
-        pageSize={5}
-        rowsPerPageOptions={[5]}
+        pageSize={6}
+        rowsPerPageOptions={[6]}
       />}
     </div>
   );

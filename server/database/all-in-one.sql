@@ -169,14 +169,17 @@ INSERT INTO "user" (sid, "phone#", name, gender, email) VALUES
   (66666666,2504287200,'Whitney Houston','F',NULL),
   (77777777,6045213212,'Lady Gaga','F','rorororomance@gmail.com'),
   (88888888,6044084808,'Dua Lipa','F','dualipaleviting@student.ubc.ca'),
-  (99999999,6042987793,'Bruno Mars','M','gotmepayingherrent@protonmail.com');
+  (99999999,6042987793,'Bruno Mars','M','gotmepayingherrent@protonmail.com'),
+  (10101010,1010101010,'Guy Guy','M',NULL),
+  (90909090,9090909090,'Just checking out','F',NULL);
 
 INSERT INTO Subletter (sid) VALUES
   (11111111),
   (22222222),
   (33333333),
   (44444444),
-  (55555555);
+  (55555555),
+  (10101010);
 
 INSERT INTO Applicant (sid) VALUES
   (99999999),
@@ -225,7 +228,8 @@ INSERT INTO Room_In12 ("room#", resID, roomType, gender) VALUES
   (202,1,'C','M'),
   (304,1,'C','F'),
   (408,2,'D','M'),
-  (1210,4,'B','U');
+  (1210,4,'B','U'),
+  (111,5,'B','M');
 
 INSERT INTO Amenity (type) VALUES
   ('Front desk'),
@@ -246,14 +250,17 @@ INSERT INTO Listing (listingID, "room#", resID, subID, sid, dateListed, status, 
   (2,202,1,2,22222222,'2022-08-01','CLOSED',1100,'2022-08-31',NULL),
   (3,304,1,3,33333333,'2022-06-09','AVAILABLE',1150,'2022-07-21','2022-08-30'),
   (4,408,2,4,44444444,'2022-07-20','AVAILABLE',975,'2022-09-01','2023-04-01'),
-  (5,1210,4,5,55555555,'2022-08-05','AVAILABLE',1300,'2022-10-01','2022-12-31');
+  (5,1210,4,5,55555555,'2022-08-05','AVAILABLE',1300,'2022-10-01','2022-12-31'),
+  (6,111,5,6,10101010,'2022-08-05','AVAILABLE',1100,'2022-10-01','2022-12-31');
 
 INSERT INTO Application (applicationID, listingID, applicantID, sid, introduction) VALUES
   (1,1,5,55555555,'It''s Justin!'),
   (2,5,1,99999999,'Hey, it''s Bruno Mars'),
   (3,3,1,99999999,'Get ME paying your rent!'),
   (4,4,1,99999999,'24K magic in the air baby.'),
-  (5,1,3,77777777,'I''m interested, please call me!');
+  (5,1,3,77777777,'I''m interested, please call me!'),
+  (6,1,2,66666666,'Hi my name is Whitney Houston.'),
+  (7,3,4,88888888,'If you wanna run away with me I know a galaxy and I could take you for a ride');
 
 INSERT INTO partOf (applicationID, documentID) VALUES
   (1,4),
@@ -275,3 +282,4 @@ INSERT INTO Viewing_Schedule4 (applicationID, address) VALUES
   (3,'1935 Lower Mall'),
   (4,'2525 West Mall'),
   (5,NULL);
+  
