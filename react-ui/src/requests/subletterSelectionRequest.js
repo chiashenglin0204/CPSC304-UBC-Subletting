@@ -10,7 +10,7 @@ import { fetchDbData } from './CRUD';
  * @returns {string} success status
  */
 export const selectApplicationOrListingByName = searchParams => {
-	fetchDbData(
+	return fetchDbData(
 		'GET',
 		'http://localhost:3001/subletter/selectApplicationOrListingByName?' +
 			new URLSearchParams(searchParams)
